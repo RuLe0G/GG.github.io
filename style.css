@@ -29,6 +29,8 @@
 
 body {
   font-family: 'Roboto Condensed', sans-serif;
+  background-color: #222;
+  color: lightgray;
 }
 
 .container {
@@ -62,6 +64,8 @@ body {
   align-items: center;
   justify-content: flex-start;
   text-align: center;
+    
+  background-color: #505050;
 }
 
 .search-container {
@@ -85,6 +89,7 @@ body {
 
 #suggestions-list li:hover {
   background-color: lightgray;
+  color: #222;
 }
 .calculator {
   display: flex;
@@ -114,4 +119,13 @@ body {
 
 .calculator input[type="text"]:focus {
   outline: none;
+}
+
+a {
+  color: #289aff;
+}
+
+#search-input, #hours, #category1, #category2, #result {
+  background-color: #505050;
+  color: lightgray;
 }
