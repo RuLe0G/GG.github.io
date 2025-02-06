@@ -6,7 +6,7 @@
     transition: width 0.1s ease;
 }
 
-.search-input{
+.search-input {
     margin: 5px;
     padding: 8px 12px;
     background-color: var(--primary);
@@ -214,7 +214,8 @@
     border: 1px solid var(--darkAccent);
     background-color: var(--darkSecondary);
 }
-.search-input{
+
+.search-input {
     background-color: var(--darkPrimary);
     color: var(--darkBg);
 }
