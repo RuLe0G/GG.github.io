@@ -1,0 +1,135 @@
+.timer {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--text);
+    margin-top: 10px;
+}
+
+
+.event-panel {
+    margin: 20px auto;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background-color: var(--bg);
+    color: var(--text);
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+}
+
+
+.player-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.player-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    height: 215px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid var(--accent);
+    color: var(--bg);
+    border-radius: 8px;
+    background-color: var(--primary);
+    transition: transform 0.3s;
+}
+
+.player-card:hover {
+    transform: scale(1.1);
+    background-color: var(--secondary);
+    color: var(--text);
+}
+
+.player-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.player-card .player-info {
+    text-align: center;
+    font-size: 14px;
+}
+
+.player-card .details {
+    display: none;
+    text-align: center;
+    font-size: 12px;
+}
+
+.player-card:hover .details {
+    display: block;
+}
+
+.player-card button {
+    padding: 5px 10px;
+    background-color: var(--primary);
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.player-card button:hover {
+    background-color: var(--accent);
+    color: var(--bg);
+}
+
+.player-panel {
+    color: var(--text);
+    margin: 20px 0;
+    padding: 10px;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--bg);
+}
+
+/* */
+
+.dark-theme .timer {
+    color: var(--darkText);
+}
+
+.dark-theme .event-panel {
+    border: 1px solid var(--darkAccent);
+    background-color: var(--darkBg);
+    color: var(--darkText);
+}
+
+.dark-theme .player-card {
+    border: 1px solid var(--darkAccent);
+    color: var(--darkBg);
+    background-color: var(--darkPrimary);
+}
+
+.dark-theme .player-card:hover {
+    background-color: var(--darkSecondary);
+    color: var(--darkText);
+}
+
+.dark-theme .player-card button {
+    background-color: var(--darkPrimary);
+    color: var(--darkText);
+
+}
+
+.dark-theme .player-card button:hover {
+    background-color: var(--darkAccent);
+    color: var(--darkBg);
+}
+
+.dark-theme .player-panel {
+    border: 2px solid var(--darkAccent);
+    background-color: var(--darkBg);
+    color: var(--darkText);
+}

@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Game Gauntlet</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/tab4.css">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/tab1.css" rel="stylesheet">
+    <link href="css/tab2.css" rel="stylesheet">
+    <link href="css/tab3.css" rel="stylesheet">
+    <link href="css/tab4.css" rel="stylesheet">
 </head>
 <body>
 <button id="theme-toggle">Сменить тему</button>
@@ -19,7 +22,7 @@
 
 <div class="tab-content active" id="tab1">
     <div class="search-container">
-        <label for="search-input"></label><input type="text" id="search-input" placeholder="Название игры">
+        <label for="search-input"></label><input id="search-input" placeholder="Название игры" type="text">
         <ul id="suggestions-list"></ul>
     </div>
 
@@ -45,7 +48,7 @@
     <div class="calculator">
         <h2>Calculator</h2>
         <label for="hours">Часов:</label>
-        <input type="text" id="hours">
+        <input id="hours" type="text">
         <label for="category1">Категория:</label>
         <select id="category1">
             <option value="1.1">AAA 2010+</option>
@@ -59,14 +62,14 @@
             <option value="1.2">75-100</option>
         </select>
         <label for="result">Результат:</label>
-        <input type="text" id="result" readonly>
+        <input id="result" readonly type="text">
     </div>
 </div>
 
 <div class="tab-content" id="tab2">
-    <div id="current-event" class="event-panel">
+    <div class="event-panel" id="current-event">
     </div>
-    <div id="past-events" class="event-panel">
+    <div class="event-panel" id="past-events">
     </div>
 </div>
 
@@ -80,10 +83,6 @@
 </div>
 
 
-<script src="js/main.js"></script>
-<script src="js/tab1.js"></script>
-<script src="js/tab2.js"></script>
-<script src="js/tab3.js"></script>
-<script src="js/tab4.js"></script>
+<script src="js/main.js" type="module"></script>
 </body>
 </html>
