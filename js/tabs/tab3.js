@@ -15,16 +15,16 @@ async function fetchData() {
 function parseCSV(data) {
     const rows = data.split('\n').map(row => row.split(','));
     const headers = rows.shift();
-    return { headers, rows };
+    return {headers, rows};
 }
 
-function createAchievementPanels({ headers, rows }) {
+function createAchievementPanels({headers, rows}) {
     const container = document.getElementById('tab3');
     container.innerHTML = '';
 
     const playerNames = headers.slice(3);
 
-    const players = playerNames.map(name => ({ name, achievements: [] }));
+    const players = playerNames.map(name => ({name, achievements: []}));
 
     const allAchievements = [];
 
@@ -33,14 +33,14 @@ function createAchievementPanels({ headers, rows }) {
         const imageUrl = row[1].trim();
         const achievementName = row[2].trim();
 
-        allAchievements.push({ name: achievementName, image: imageUrl });
+        allAchievements.push({name: achievementName, image: imageUrl});
 
         row.slice(3).forEach((value, index) => {
             if (value.trim() === '1') {
                 players[index].achievements.push({
                     name: achievementName,
                     image: imageUrl,
-                    rarity: rarity
+                    rarity
                 });
             }
         });

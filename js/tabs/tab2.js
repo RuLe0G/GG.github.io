@@ -9,9 +9,7 @@
         const pastEvents = jsonData.events;
         renderPastEvents(pastEvents);
     })
-    .catch(error => {
-        console.error("Ошибка загрузки данных:", error);
-    });
+    .catch(error => console.error("Ошибка загрузки данных:", error));
 
 function renderCurrentEvent() {
     const currentEventPanel = document.getElementById('current-event');

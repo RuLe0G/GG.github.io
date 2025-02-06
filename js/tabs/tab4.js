@@ -43,9 +43,7 @@ function createLibraryTab(data) {
         filterGames(data.Library, searchInput.value.toLowerCase(), parseInt(value));
     });
 
-    searchInput.addEventListener('input', () => {
-        filterGames(data.Library, searchInput.value.toLowerCase(), parseInt(ratingSlider.value));
-    });
+    searchInput.addEventListener('input', () => filterGames(data.Library, searchInput.value.toLowerCase(), parseInt(ratingSlider.value)));
 
     ratingSliderContainer.appendChild(ratingSlider);
     ratingSliderContainer.appendChild(sliderLabel);
@@ -224,9 +222,7 @@ function filterGames(games, query, rating, author = null, event = null) {
 
 function getUniqueAuthors(games) {
     const authors = new Set();
-    games.forEach(game => {
-        game.reviews.forEach(review => authors.add(review.reviewerName));
-    });
+    games.forEach(game => game.reviews.forEach(review => authors.add(review.reviewerName)));
     return Array.from(authors);
 }
 
@@ -247,10 +243,9 @@ function calculateAverageScore(reviews) {
     return (totalScore / reviews.length).toFixed(1);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () =>
     fetchLibraryData().then(data => {
         if (data) {
             createLibraryTab(data);
         }
-    });
-});
+    }));
