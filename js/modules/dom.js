@@ -8,7 +8,7 @@ export class Dom {
     }
 
     static delegateEvent(parent, eventType, selector, handler) {
-        parent.addEventListener(eventType, (e) => {
+        parent.addEventListener(eventType, e => {
             if (e.target.matches(selector)) {
                 handler(e);
             }

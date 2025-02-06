@@ -1,3 +1,5 @@
+import {Cache} from './cache.js';
+
 class Api {
     static async fetchData(url, cacheKey = null) {
         if (cacheKey) {

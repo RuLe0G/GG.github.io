@@ -1,100 +1,128 @@
-fetch('data/merged.json')
-    .then(response => {
-        if (!response.ok) throw new Error(`Failed to load data: ${response.status}`);
-        return response.json();
-    })
-    .then(data => {
-        const suggestions = data.applist.apps;
+import Api from '../modules/api.js';
+import {Helpers} from '../modules/helpers.js';
+import {Dom} from '../modules/dom.js';
 
-        const searchInput = document.getElementById('search-input');
-        const suggestionsList = document.getElementById('suggestions-list');
+const SELECTORS = {
+    searchInput: '#search-input',
+    suggestionsList: '#suggestions-list',
+    infoBlocks: '.info-block'
+};
 
-        searchInput.addEventListener('input', () => {
-            const userInput = searchInput.value.toLowerCase();
+class Tab1 {
+    constructor() {
+        this.elements = Dom.cacheSelectors(SELECTORS);
+        this.init();
+    }
 
-            const filteredSuggestions = suggestions.filter(suggestion =>
-                suggestion.name.toLowerCase().startsWith(userInput)
-            );
+    async init() {
+        try {
+            const data = await Api.fetchData('data/merged.json', 'games');
+            this.games = data.applist.apps;
+            this.setupEventListeners();
+            this.initCalculator();
+        } catch (error) {
+            Helpers.handleError(error);
+        }
+    }
 
-            suggestionsList.innerHTML = '';
+    setupEventListeners() {
+        const debouncedSearch = Helpers.debounce(this.handleSearch.bind(this), 300);
+        this.elements.searchInput.addEventListener('input', debouncedSearch);
 
-            const limitedSuggestions = filteredSuggestions.slice(0, 10);
+        Dom.delegateEvent(this.elements.suggestionsList, 'click', 'li', e => this.handleSuggestionClick(e.target));
 
-            limitedSuggestions.forEach(suggestion => {
-                const li = document.createElement('li');
-                li.textContent = suggestion.name;
+    }
 
-                li.addEventListener('click', () => {
-                    searchInput.value = suggestion.name;
-                    suggestionsList.innerHTML = '';
-                    updateInfoBlocks(suggestion);
-                });
+    handleSearch(e) {
+        const query = e.target.value.toLowerCase();
+        const filtered = this.games.filter(game => game.name.toLowerCase().includes(query));
+        this.renderSuggestions(filtered.slice(0, 10));
+    }
 
-                suggestionsList.appendChild(li);
-            });
-        });
-    })
-    .catch(error => console.error('Error loading JSON:', error));
+    renderSuggestions(suggestions) {
+        this.elements.suggestionsList.innerHTML = suggestions
+            .map(game => `<li>${game.name}</li>`)
+            .join('');
+    }
 
-function updateInfoBlocks(app) {
-    const {
-        appid, name, developer, publisher, date,
-        positive, negative, timeToBeat, score, link, SteamDBRating
-    } = app;
+    handleSuggestionClick(target) {
+        const gameName = target.textContent;
+        const game = this.games.find(g => g.name === gameName);
+        if (game) {
+            this.elements.searchInput.value = game.name;
+            this.elements.suggestionsList.innerHTML = '';
+            this.updateInfoBlocks(game);
+        }
+    }
 
-    document.querySelector('.info-block:nth-of-type(1)').innerHTML = `
-    <h2>INFO</h2>
-    <p><strong>App ID:</strong> ${appid}</p>
-    <p><strong>Name:</strong> ${name}</p>
-    <p><strong>Developer:</strong> ${developer}</p>
-    <p><strong>Publisher:</strong> ${publisher}</p>
-    <p><strong>Date:</strong> ${date}</p>
-  `;
+    updateInfoBlocks(game) {
+        const infoBlock1 = document.querySelector('.info-block:nth-of-type(1)');
+        infoBlock1.innerHTML = `
+      <h2>INFO</h2>
+      <p><strong>App ID:</strong> ${game.appid}</p>
+      <p><strong>Name:</strong> ${game.name}</p>
+      <p><strong>Developer:</strong> ${game.developer}</p>
+      <p><strong>Publisher:</strong> ${game.publisher}</p>
+      <p><strong>Date:</strong> ${game.date}</p>
+    `;
 
-    document.querySelector('.info-block:nth-of-type(2)').innerHTML = `
-    <h2>Steam Reviews</h2>
-    <p><strong>Positive:</strong> ${positive}</p>
-    <p><strong>Negative:</strong> ${negative}</p>
-    <p><strong>SteamDB Rating:</strong> ${SteamDBRating.toFixed(2)}</p>
-    <p><strong>Steam Rating:</strong> ${getSteamReviewsText(SteamDBRating)}</p>
-  `;
+        const infoBlock2 = document.querySelector('.info-block:nth-of-type(2)');
+        infoBlock2.innerHTML = `
+      <h2>Steam Reviews</h2>
+      <p><strong>Positive:</strong> ${game.positive}</p>
+      <p><strong>Negative:</strong> ${game.negative}</p>
+      <p><strong>SteamDB Rating:</strong> ${game.SteamDBRating.toFixed(2)}</p>
+      <p><strong>Steam Rating:</strong> ${this.getSteamReviewsText(game.SteamDBRating)}</p>
+    `;
 
-    document.querySelector('.info-block:nth-of-type(3)').innerHTML = `
-    <h2>Metacritic Review</h2>
-    <p><strong>Score:</strong> ${score}</p>
-    <p><strong>Link:</strong> <a href="${link}" target="_blank">${link}</a></p>
-  `;
+        const infoBlock3 = document.querySelector('.info-block:nth-of-type(3)');
+        infoBlock3.innerHTML = `
+      <h2>Metacritic Review</h2>
+      <p><strong>Score:</strong> ${game.score}</p>
+      <p><strong>Link:</strong> <a href="${game.link}" target="_blank">${game.link}</a></p>
+    `;
 
-    const timeToBeatText = timeToBeat.split('||').map(time => `${time.trim()} hours`).join('<br>');
-    document.querySelector('.info-block:nth-of-type(4)').innerHTML = `
-    <h2>HowLongToBeat</h2>
-    <p>${timeToBeatText}</p>
-  `;
+        const infoBlock4 = document.querySelector('.info-block:nth-of-type(4)');
+        const timeToBeatText = game.timeToBeat.split('||').map(time => `${time.trim()} hours`).join('<br>');
+        infoBlock4.innerHTML = `
+      <h2>HowLongToBeat</h2>
+      <p>${timeToBeatText}</p>
+    `;
+    }
+
+    getSteamReviewsText(rating) {
+        if (rating >= 90) return 'Overwhelmingly Positive';
+        if (rating >= 80) return 'Very Positive';
+        if (rating >= 70) return 'Mostly Positive';
+        if (rating >= 50) return 'Mixed';
+        return 'Mostly Negative';
+    }
+
+    initCalculator() {
+        const hoursInput = document.getElementById('hours');
+        const category1Select = document.getElementById('category1');
+        const category2Select = document.getElementById('category2');
+        const resultInput = document.getElementById('result');
+
+        function calculateResult() {
+            const hours = parseFloat(hoursInput.value) || 0;
+            const cat1 = parseFloat(category1Select.value) || 1;
+            const cat2 = parseFloat(category2Select.value) || 1;
+            const result = hours * 10 * cat1 * cat2;
+            resultInput.value = result.toFixed(2);
+        }
+
+        [hoursInput, category1Select, category2Select].forEach(input =>
+            input.addEventListener('input', calculateResult)
+        );
+    }
+
+    activate() {
+
+    }
+
+    deactivate() {
+    }
 }
 
-function getSteamReviewsText(rating) {
-    if (rating >= 90) return 'Overwhelmingly Positive';
-    if (rating >= 80) return 'Very Positive';
-    if (rating >= 70) return 'Mostly Positive';
-    if (rating >= 50) return 'Mixed';
-    return 'Mostly Negative';
-}
-
-// calculator
-const hoursInput = document.getElementById('hours');
-const category1Select = document.getElementById('category1');
-const category2Select = document.getElementById('category2');
-const resultInput = document.getElementById('result');
-
-function calculateResult() {
-    const hours = parseFloat(hoursInput.value) || 0;
-    const category1 = parseFloat(category1Select.value) || 1;
-    const category2 = parseFloat(category2Select.value) || 1;
-
-    const result = hours * 10 * category1 * category2;
-    resultInput.value = result.toFixed(2);
-}
-
-[hoursInput, category1Select, category2Select].forEach(input =>
-    input.addEventListener('input', calculateResult)
-);
+export default Tab1;
