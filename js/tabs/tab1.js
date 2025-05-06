@@ -16,7 +16,7 @@ class Tab1 {
 
     async init() {
         try {
-            const data = await Api.fetchData('data/merged.json', 'games');
+            const data = await Api.fetchData('data/merged_final.json', 'games');
             this.games = data.applist.apps;
             this.setupEventListeners();
             this.initCalculator();
