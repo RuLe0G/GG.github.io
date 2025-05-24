@@ -110,6 +110,7 @@ function WheelSketch(_p5) {
     };
 
     _p5.mouseDragged = (event) => {
+        /*
         if (_p5.mouseX > _p5.width || _p5.mouseX < 0 || _p5.mouseY > _p5.height || _p5.mouseY < 0) {
             return;
         }
@@ -129,6 +130,7 @@ function WheelSketch(_p5) {
         }
 
         incrementCounter(delta);
+        */
         return false;
     };
 
