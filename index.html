@@ -9,15 +9,50 @@
     <link href="css/tab2.css" rel="stylesheet">
     <link href="css/tab3.css" rel="stylesheet">
     <link href="css/tab4.css" rel="stylesheet">
+    <link href="css/tab0.css" rel="stylesheet">
 </head>
 <body>
 <button id="theme-toggle">Сменить тему</button>
 
 <div class="tabs">
+    <button class="tab-button" data-tab="tab0">Крутилка</button>
     <button class="tab-button active" data-tab="tab1">Поиск</button>
     <button class="tab-button" data-tab="tab2">Зал славы</button>
     <button class="tab-button" data-tab="tab3">Достижения</button>
     <button class="tab-button" data-tab="tab4">Библиотека</button>
+</div>
+
+<div class="tab-content" id="tab0">
+    <div class="wheel-container">
+        <div id="canvas"></div>
+        <div id="item-image">
+            <div class="arc"></div>
+            <img src="resources/wheel/026.png" alt="" />
+            <div id="canvas2"></div>
+        </div>
+
+        <div id="custom-list" class="dialog">
+            <div class="header">Свой список</div>
+            <textarea rows="15" cols="50"></textarea>
+            <hr />
+            <button>Применить</button>
+        </div>
+
+        <div class="wheel-controls">
+            <div class="wheel-buttons">
+                <button class="wheel-btn" data-wheel="default">Колесо балдежа</button>
+                <button class="wheel-btn" data-wheel="shame">Колесо говна</button>
+                <button class="wheel-btn" data-wheel="super_shame">Колесо супер говна</button>
+                <button class="wheel-btn" data-wheel="custom">Свой список</button>
+                <button class="wheel-btn" data-wheel="saved">Сохраненное колесо</button>
+            </div>
+
+            <div class="last-selected">
+                <span id="last-selected-text"></span>
+                <img id="copy-last-selected" title="Скопировать последний выпавший пункт" src="resources/wheel/page_white_paste_table.png"/>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="tab-content active" id="tab1">
