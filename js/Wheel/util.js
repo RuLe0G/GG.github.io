@@ -1,4 +1,3 @@
-
 /**
  * @see https://easings.net/#easeOutElastic
  * @param x
