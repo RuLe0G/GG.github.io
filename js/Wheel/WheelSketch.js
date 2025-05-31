@@ -54,7 +54,11 @@ function WheelSketch(p) {
         });
         p.pop();
 
-        // Draw segment labels
+        // Draw segment labels - повернутый текст по всей окружности на -45°
+        p.push();
+        p.translate(RADIUS, RADIUS);
+        p.rotate(rotationAngle - 90); // Общий поворот текста против часовой
+
         segments.forEach(seg => {
             const angleSize = seg.endAngle - seg.startAngle;
             if (angleSize < 6) return;
@@ -63,12 +67,8 @@ function WheelSketch(p) {
             const textRadius = RADIUS * 0.65;
 
             p.push();
-            p.translate(RADIUS, RADIUS);
-            p.rotate(rotationAngle);
             p.rotate(midAngle);
             p.translate(0, -textRadius);
-            p.rotate(90);
-
             p.fill(255);
             p.noStroke();
 
@@ -78,9 +78,11 @@ function WheelSketch(p) {
             }
 
             p.textSize(18);
+            p.textAlign(p.CENTER, p.CENTER);
             p.text(content, 0, 0);
             p.pop();
         });
+        p.pop();
 
         // Animate rotation
         if (isSpinning) {
