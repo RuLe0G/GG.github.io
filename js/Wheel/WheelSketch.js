@@ -12,6 +12,8 @@ function WheelSketch(p) {
     let lastSelected = '';
     let fontRegular;
 
+    let hoverIndex = null;
+
     function easeOutCubic(t) {
         return 1 - Math.pow(1 - t, 3);
     }
@@ -41,12 +43,16 @@ function WheelSketch(p) {
     p.draw = () => {
         p.clear();
 
-        // Draw wheel segments
         p.push();
         p.translate(RADIUS, RADIUS);
         p.rotate(rotationAngle + 180);
-        segments.forEach(seg => {
-            p.fill(seg.color);
+
+        segments.forEach((seg, idx) => {
+            if (hoverIndex !== null && hoverIndex !== idx) {
+                p.fill(120);
+            } else {
+                p.fill(seg.color);
+            }
             p.noStroke();
             p.arc(0, 0, DIAMETER, DIAMETER, seg.startAngle, seg.endAngle, p.PIE);
         });
@@ -56,7 +62,7 @@ function WheelSketch(p) {
         p.translate(RADIUS, RADIUS);
         p.rotate(rotationAngle - 90);
 
-        segments.forEach(seg => {
+        segments.forEach((seg) => {
             const angleSize = seg.endAngle - seg.startAngle;
             if (angleSize < 6) return;
 
@@ -80,9 +86,9 @@ function WheelSketch(p) {
             p.text(content, 0, 0);
             p.pop();
         });
+
         p.pop();
 
-        // Animate rotation
         if (isSpinning) {
             const now = performance.now();
             const elapsed = now - animStartTime;
@@ -121,7 +127,6 @@ function WheelSketch(p) {
             return;
         }
 
-        shuffleArray(_items);
 
         segments = [];
         let totalWeight = 0;
@@ -149,16 +154,9 @@ function WheelSketch(p) {
         rotationAngle = 0;
         isSpinning = false;
         lastSelected = '';
+        hoverIndex = null;
         document.getElementById('last-selected-text').textContent = '';
     };
-
-    function randomColorWithCap(max = 200) {
-        const r = Math.floor(Math.random() * max);
-        const g = Math.floor(Math.random() * max);
-        const b = Math.floor(Math.random() * max);
-        return p.color(r, g, b);
-    }
-
 
     function startSpinAnimation() {
         if (segments.length === 0) return;
@@ -166,7 +164,6 @@ function WheelSketch(p) {
         startRotation = rotationAngle;
         animStartTime = performance.now();
 
-        // Рандомизация длительности: 6000–10000 мс
         animDuration = 8000 + (Math.random() * 4000 - 2000);
         isSpinning = true;
 
@@ -184,18 +181,16 @@ function WheelSketch(p) {
         }
 
         const midAngle = (chosenSeg.startAngle + chosenSeg.endAngle) / 2;
-        const normalizedMid = (midAngle % 360 + 360) % 360;
+        const normalizedMid = ((midAngle % 360) + 360) % 360;
         const needed = (360 - (normalizedMid - 90)) % 360;
 
-        // Рандомизация количества оборотов ±20%
         const baseSpins = 20;
-        const spinFactor = 0.8 + Math.random() * 0.4; // от 0.8 до 1.2
+        const spinFactor = 0.8 + Math.random() * 0.4;
         const fullSpins = Math.floor(baseSpins * spinFactor);
 
         targetRotation = fullSpins * 360 + needed;
         lastSelected = chosenSeg.title;
     }
-
 
     function announceSelected() {
         const el = document.getElementById('last-selected-text');
@@ -207,12 +202,10 @@ function WheelSketch(p) {
         }
     }
 
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
+    p.setHoverIndex = function (i) {
+        hoverIndex = (typeof i === 'number') ? i : null;
+    };
+
 
     p.getCurrentSegment = function () {
         const angleAtPointer = ((rotationAngle + 360) % 360 + 90) % 360;

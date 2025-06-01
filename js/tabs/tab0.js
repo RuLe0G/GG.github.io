@@ -24,7 +24,7 @@ export default class Tab0 {
             await Helpers.loadScript('js/Wheel/p5.min.js');
             await Helpers.loadScript('js/Wheel/WheelSketch.js');
         } catch (err) {
-            Helpers.handleError(`Failed to load p5 or WheelSketch: ${err}`);
+            Helpers.handleError(`Не удалось загрузить p5 или WheelSketch: ${err}`);
             return;
         }
 
@@ -41,22 +41,24 @@ export default class Tab0 {
 
         const ds = this.wheelData[typeKey];
         if (!ds || !Array.isArray(ds.items)) {
-            console.warn(`No data for wheel type "${typeKey}"`);
+            console.warn(`Нет данных для колеса "${typeKey}"`);
             return;
         }
 
-        const totalWeight = ds.items.reduce((sum, it) => sum + (it.weight || 1), 0);
+        const itemsCopy = ds.items.slice();
+        shuffleArray(itemsCopy);
 
-        const wheelItems = ds.items.map(it => {
+        const totalWeight = itemsCopy.reduce((sum, it) => sum + (it.weight || 1), 0);
+
+        const wheelItems = itemsCopy.map(it => {
             const r = Math.floor(Math.random() * 200);
             const g = Math.floor(Math.random() * 200);
             const b = Math.floor(Math.random() * 200);
             const colorHex = '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
-
             return {
                 title: it.title,
                 weight: it.weight || 1,
-                colorHex: colorHex
+                colorHex
             };
         });
 
@@ -65,7 +67,6 @@ export default class Tab0 {
             weight: item.weight,
             colorHex: item.colorHex
         }));
-
         this.p5Wheel.setData(wheelForP5);
 
         this.updateWheelTable(wheelItems, totalWeight);
@@ -79,10 +80,10 @@ export default class Tab0 {
         const container = document.getElementById('wheel-table');
         if (!container) return;
 
-        const rowsHtml = items.map(it => {
+        const rowsHtml = items.map((it, idx) => {
             const chancePct = ((it.weight / totalWeight) * 100).toFixed(1);
             return `
-                <tr>
+                <tr data-index="${idx}">
                     <td>${it.title.length > 40 ? it.title.slice(0, 40) + '…' : it.title}</td>
                     <td>${chancePct}%</td>
                     <td><span class="color-dot" style="background: ${it.colorHex}"></span></td>
@@ -96,6 +97,16 @@ export default class Tab0 {
                 </tbody>
             </table>
         `;
+
+        container.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                const idx = parseInt(row.dataset.index, 10);
+                this.p5Wheel.setHoverIndex(idx);
+            });
+            row.addEventListener('mouseleave', () => {
+                this.p5Wheel.setHoverIndex(null);
+            });
+        });
     }
 
     setupEventListeners() {
@@ -109,7 +120,6 @@ export default class Tab0 {
 
                 document.querySelectorAll('.wheel-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
                 this.setWheelData(btn.dataset.wheel);
             }
         );
@@ -118,7 +128,7 @@ export default class Tab0 {
             this.elements.copyButton.addEventListener('click', () => {
                 const txt = this.elements.lastSelectedText.textContent;
                 if (txt) {
-                    navigator.clipboard.writeText(txt).catch(err => console.warn('Copy failed:', err));
+                    navigator.clipboard.writeText(txt).catch(err => console.warn('Не удалось скопировать:', err));
                 }
             });
         }
@@ -135,5 +145,12 @@ export default class Tab0 {
     }
 
     deactivate() {
+    }
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
 }
