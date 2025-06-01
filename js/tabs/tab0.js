@@ -80,23 +80,25 @@ export default class Tab0 {
         const container = document.getElementById('wheel-table');
         if (!container) return;
 
-        const rowsHtml = items.map((it, idx) => {
+        const sorted = items.slice().sort((a, b) => (b.weight || 0) - (a.weight || 0));
+
+        const rowsHtml = sorted.map((it, idx) => {
             const chancePct = ((it.weight / totalWeight) * 100).toFixed(1);
             return `
-                <tr data-index="${idx}">
-                    <td>${it.title.length > 40 ? it.title.slice(0, 40) + '…' : it.title}</td>
-                    <td>${chancePct}%</td>
-                    <td><span class="color-dot" style="background: ${it.colorHex}"></span></td>
-                </tr>`;
+            <tr data-index="${items.indexOf(it)}">
+                <td>${it.title.length > 40 ? it.title.slice(0, 40) + '…' : it.title}</td>
+                <td>${chancePct}%</td>
+                <td><span class="color-dot" style="background: ${it.colorHex}"></span></td>
+            </tr>`;
         }).join('');
 
         container.innerHTML = `
-            <table>
-                <tbody>
-                    ${rowsHtml}
-                </tbody>
-            </table>
-        `;
+        <table>
+            <tbody>
+                ${rowsHtml}
+            </tbody>
+        </table>
+    `;
 
         container.querySelectorAll('tbody tr').forEach(row => {
             row.addEventListener('mouseenter', () => {
