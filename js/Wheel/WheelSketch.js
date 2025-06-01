@@ -1,5 +1,3 @@
-// WheelSketch.js
-// P5 sketch for drawing and animating a roulette wheel.
 function WheelSketch(p) {
     const DIAMETER = 700;
     const RADIUS = DIAMETER / 2;
@@ -10,7 +8,7 @@ function WheelSketch(p) {
     let targetRotation = 0;
     let startRotation = 0;
     let animStartTime = 0;
-    let animDuration = 30000; // 30 seconds
+    let animDuration = 30000;
     let lastSelected = '';
     let fontRegular;
 
@@ -46,7 +44,7 @@ function WheelSketch(p) {
         // Draw wheel segments
         p.push();
         p.translate(RADIUS, RADIUS);
-        p.rotate(rotationAngle+180);
+        p.rotate(rotationAngle + 180);
         segments.forEach(seg => {
             p.fill(seg.color);
             p.noStroke();
@@ -68,6 +66,7 @@ function WheelSketch(p) {
             p.push();
             p.rotate(midAngle);
             p.translate(0, -textRadius);
+            p.rotate(90);
             p.fill(255);
             p.noStroke();
 
@@ -97,7 +96,7 @@ function WheelSketch(p) {
                 announceSelected();
             }
         }
-        
+
         drawPointer();
     };
 
@@ -122,7 +121,7 @@ function WheelSketch(p) {
             return;
         }
 
-        shuffleArray(_items); // Перемешивание
+        shuffleArray(_items);
 
         segments = [];
         let totalWeight = 0;
@@ -134,7 +133,7 @@ function WheelSketch(p) {
         _items.forEach(it => {
             const w = it.weight || 1;
             const angleSize = (w / totalWeight) * 360;
-            const col = p.color(Math.random() * 255, Math.random() * 255, Math.random() * 255);
+            const col = p.color(it.colorHex);
 
             segments.push({
                 title: it.title,
@@ -152,6 +151,13 @@ function WheelSketch(p) {
         lastSelected = '';
         document.getElementById('last-selected-text').textContent = '';
     };
+
+    function randomColorWithCap(max = 200) {
+        const r = Math.floor(Math.random() * max);
+        const g = Math.floor(Math.random() * max);
+        const b = Math.floor(Math.random() * max);
+        return p.color(r, g, b);
+    }
 
 
     function startSpinAnimation() {

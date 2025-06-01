@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -11,6 +12,7 @@
     <link href="css/tab4.css" rel="stylesheet">
     <link href="css/tab0.css" rel="stylesheet">
 </head>
+
 <body>
 <button id="theme-toggle">Сменить тему</button>
 
@@ -24,8 +26,11 @@
 
 <div class="tab-content" id="tab0">
     <div class="wheel-container">
-        <!-- Блок, куда п5 вставит <canvas> -->
-        <div id="wheel-canvas"></div>
+        <div class="wheel-layout">
+            <div class="wheel-table" id="wheel-table"></div>
+
+            <div id="wheel-canvas"></div>
+        </div>
 
         <div class="wheel-controls">
             <div class="wheel-buttons">
@@ -35,8 +40,7 @@
             </div>
             <div class="last-selected">
                 <span id="last-selected-text"></span>
-                <img id="copy-last-selected"
-                     src="resources/wheel/page_white_paste_table.png"
+                <img id="copy-last-selected" src="resources/wheel/page_white_paste_table.png"
                      title="Скопировать последний выпавший пункт"/>
             </div>
         </div>
@@ -110,4 +114,5 @@
 <script src="js/Wheel/WheelSketch.js"></script>
 <script src="js/tab0.js" type="module"></script>
 </body>
+
 </html>

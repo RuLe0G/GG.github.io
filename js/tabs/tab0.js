@@ -1,4 +1,3 @@
-// tab0.js
 import {Helpers} from '../modules/helpers.js';
 import {Dom} from '../modules/dom.js';
 import dataSet from '../data/wheelData.js';
@@ -46,11 +45,57 @@ export default class Tab0 {
             return;
         }
 
-        this.p5Wheel.setData(ds.items);
-        this.currentDataSet = typeKey;
+        const totalWeight = ds.items.reduce((sum, it) => sum + (it.weight || 1), 0);
 
+        const wheelItems = ds.items.map(it => {
+            const r = Math.floor(Math.random() * 200);
+            const g = Math.floor(Math.random() * 200);
+            const b = Math.floor(Math.random() * 200);
+            const colorHex = '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+
+            return {
+                title: it.title,
+                weight: it.weight || 1,
+                colorHex: colorHex
+            };
+        });
+
+        const wheelForP5 = wheelItems.map(item => ({
+            title: item.title,
+            weight: item.weight,
+            colorHex: item.colorHex
+        }));
+
+        this.p5Wheel.setData(wheelForP5);
+
+        this.updateWheelTable(wheelItems, totalWeight);
+
+        this.currentDataSet = typeKey;
         const elText = this.elements.lastSelectedText;
         if (elText) elText.textContent = '';
+    }
+
+    updateWheelTable(items, totalWeight) {
+        const container = document.getElementById('wheel-table');
+        if (!container) return;
+
+        const rowsHtml = items.map(it => {
+            const chancePct = ((it.weight / totalWeight) * 100).toFixed(1);
+            return `
+                <tr>
+                    <td>${it.title.length > 40 ? it.title.slice(0, 40) + '…' : it.title}</td>
+                    <td>${chancePct}%</td>
+                    <td><span class="color-dot" style="background: ${it.colorHex}"></span></td>
+                </tr>`;
+        }).join('');
+
+        container.innerHTML = `
+            <table>
+                <tbody>
+                    ${rowsHtml}
+                </tbody>
+            </table>
+        `;
     }
 
     setupEventListeners() {
@@ -90,6 +135,5 @@ export default class Tab0 {
     }
 
     deactivate() {
-        // Optionally call this.p5Wheel.remove() to remove the canvas and stop draw()
     }
 }
