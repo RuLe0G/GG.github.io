@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -9,15 +10,41 @@
     <link href="css/tab2.css" rel="stylesheet">
     <link href="css/tab3.css" rel="stylesheet">
     <link href="css/tab4.css" rel="stylesheet">
+    <link href="css/tab0.css" rel="stylesheet">
 </head>
+
 <body>
 <button id="theme-toggle">Сменить тему</button>
 
 <div class="tabs">
+    <button class="tab-button" data-tab="tab0">Крутилка</button>
     <button class="tab-button active" data-tab="tab1">Поиск</button>
     <button class="tab-button" data-tab="tab2">Зал славы</button>
     <button class="tab-button" data-tab="tab3">Достижения</button>
     <button class="tab-button" data-tab="tab4">Библиотека</button>
+</div>
+
+<div class="tab-content" id="tab0">
+    <div class="wheel-container">
+        <div class="wheel-layout">
+            <div class="wheel-table" id="wheel-table"></div>
+
+            <div id="wheel-canvas"></div>
+        </div>
+
+        <div class="wheel-controls">
+            <div class="wheel-buttons">
+                <button class="wheel-btn" data-wheel="default">Колесо балдежа</button>
+                <button class="wheel-btn" data-wheel="shame">Колесо говна</button>
+                <button class="wheel-btn" data-wheel="super_shame">Колесо супер говна</button>
+            </div>
+            <div class="last-selected">
+                <span id="last-selected-text"></span>
+                <img id="copy-last-selected" src="resources/wheel/page_white_paste_table.png"
+                     title="Скопировать последний выпавший пункт"/>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="tab-content active" id="tab1">
@@ -82,7 +109,10 @@
     <h2>Загрузка данных...</h2>
 </div>
 
-
 <script src="js/main.js" type="module"></script>
+<script src="js/Wheel/p5.min.js"></script>
+<script src="js/Wheel/WheelSketch.js"></script>
+<script src="js/tab0.js" type="module"></script>
 </body>
+
 </html>
