@@ -46,7 +46,7 @@ function WheelSketch(p) {
         // Draw wheel segments
         p.push();
         p.translate(RADIUS, RADIUS);
-        p.rotate(rotationAngle);
+        p.rotate(rotationAngle+180);
         segments.forEach(seg => {
             p.fill(seg.color);
             p.noStroke();
@@ -54,10 +54,9 @@ function WheelSketch(p) {
         });
         p.pop();
 
-        // Draw segment labels - повернутый текст по всей окружности на -45°
         p.push();
         p.translate(RADIUS, RADIUS);
-        p.rotate(rotationAngle - 90); // Общий поворот текста против часовой
+        p.rotate(rotationAngle - 90);
 
         segments.forEach(seg => {
             const angleSize = seg.endAngle - seg.startAngle;
@@ -98,30 +97,6 @@ function WheelSketch(p) {
                 announceSelected();
             }
         }
-
-        /// debug
-        segments.forEach((seg, index) => {
-            const midAngle = (seg.startAngle + seg.endAngle) / 2;
-            const labelRadius = RADIUS * 0.4;
-
-            p.push();
-            p.translate(RADIUS, RADIUS);
-            p.rotate(rotationAngle); // учёт текущего поворота
-            p.rotate(midAngle);
-            p.translate(0, -labelRadius);
-            p.rotate(-midAngle); // повернуть текст обратно
-
-            p.fill(0);
-            p.noStroke();
-            p.textSize(12);
-            p.textAlign(p.CENTER, p.CENTER);
-
-            const angleText = `#${index}\n${seg.startAngle.toFixed(1)}°\n→\n${seg.endAngle.toFixed(1)}°`;
-            p.text(angleText, 0, 0);
-
-            p.pop();
-        });
-        ///
         
         drawPointer();
     };
