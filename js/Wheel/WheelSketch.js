@@ -62,7 +62,7 @@ function WheelSketch(p) {
         p.translate(RADIUS, RADIUS);
         p.rotate(rotationAngle - 90);
 
-        segments.forEach((seg) => {
+        segments.forEach(seg => {
             const angleSize = seg.endAngle - seg.startAngle;
             if (angleSize < 6) return;
 
@@ -181,7 +181,7 @@ function WheelSketch(p) {
         }
 
         const midAngle = (chosenSeg.startAngle + chosenSeg.endAngle) / 2;
-        const normalizedMid = ((midAngle % 360) + 360) % 360;
+        const normalizedMid = (midAngle % 360 + 360) % 360;
         const needed = (360 - (normalizedMid - 90)) % 360;
 
         const baseSpins = 20;
@@ -203,7 +203,7 @@ function WheelSketch(p) {
     }
 
     p.setHoverIndex = function (i) {
-        hoverIndex = (typeof i === 'number') ? i : null;
+        hoverIndex = typeof i === 'number' ? i : null;
     };
 
 
