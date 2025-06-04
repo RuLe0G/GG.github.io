@@ -1,6 +1,19 @@
 function WheelSketch(p) {
+    /*
+     * === CONFIGURABLE PARAMETERS ===
+     * DIAMETER          — Диаметр колеса (в пикселях)
+     * RADIUS            — Радиус (половина диаметра)
+     * BASE_SPINS        — Базовое количество полных оборотов
+     * SPIN_VARIATION    — Коэффициент случайной вариации оборотов (от 0.8 до 1.2)
+     * SPIN_DURATION     — Длительность анимации вращения в миллисекундах (по умолчанию 30000 мс = 30 сек)
+     * EASING_FUNCTION   — Функция замедления вращения (по умолчанию quartic для медленного финала)
+     */
+
     const DIAMETER = 700;
     const RADIUS = DIAMETER / 2;
+    const BASE_SPINS = 20;
+    const SPIN_VARIATION = 0.8 + Math.random() * 0.4; 
+    const SPIN_DURATION = 30000 + ((Math.random() * 4) - 2);
 
     let segments = [];
     let rotationAngle = 0;
@@ -8,14 +21,20 @@ function WheelSketch(p) {
     let targetRotation = 0;
     let startRotation = 0;
     let animStartTime = 0;
-    let animDuration = 30000;
+    let animDuration = SPIN_DURATION;
     let lastSelected = '';
     let fontRegular;
+
+    let isShaking = false;
+    let shakeStartTime = 0;
+    const shakeDuration = 250;
+    const shakeAmplitude = 1; 
+
 
     let hoverIndex = null;
 
     function easeOutCubic(t) {
-        return 1 - Math.pow(1 - t, 3);
+        return Math.sin((t * Math.PI) / 2);
     }
 
     p.preload = () => {
@@ -43,21 +62,19 @@ function WheelSketch(p) {
     p.draw = () => {
         p.clear();
 
+        // — Рисуем сегменты
         p.push();
         p.translate(RADIUS, RADIUS);
         p.rotate(rotationAngle + 180);
 
         segments.forEach((seg, idx) => {
-            if (hoverIndex !== null && hoverIndex !== idx) {
-                p.fill(120);
-            } else {
-                p.fill(seg.color);
-            }
+            p.fill(hoverIndex !== null && hoverIndex !== idx ? 120 : seg.color);
             p.noStroke();
             p.arc(0, 0, DIAMETER, DIAMETER, seg.startAngle, seg.endAngle, p.PIE);
         });
         p.pop();
 
+        // — Рисуем текст
         p.push();
         p.translate(RADIUS, RADIUS);
         p.rotate(rotationAngle - 90);
@@ -77,16 +94,12 @@ function WheelSketch(p) {
             p.noStroke();
 
             let content = seg.title;
-            if (content.length > 21) {
-                content = content.slice(0, 21) + '...';
-            }
+            if (content.length > 21) content = content.slice(0, 21) + '...';
 
             p.textSize(18);
-            p.textAlign(p.CENTER, p.CENTER);
             p.text(content, 0, 0);
             p.pop();
         });
-
         p.pop();
 
         if (isSpinning) {
@@ -99,12 +112,31 @@ function WheelSketch(p) {
             if (t >= 1) {
                 rotationAngle = targetRotation % 360;
                 isSpinning = false;
+                startShakeAnimation();
                 announceSelected();
+            }
+        } else if (isShaking) {
+            const now = performance.now();
+            const shakeElapsed = now - shakeStartTime;
+            const t = shakeElapsed / shakeDuration;
+
+            if (t >= 1) {
+                isShaking = false;
+                rotationAngle = targetRotation % 360;
+            } else {
+                const damping = 1 - t; 
+                const angleOffset = Math.sin(t * Math.PI * 3) * shakeAmplitude * damping;
+                rotationAngle = (targetRotation + angleOffset) % 360;
             }
         }
 
         drawPointer();
     };
+
+    function startShakeAnimation() {
+        isShaking = true;
+        shakeStartTime = performance.now();
+    }
 
     function drawPointer() {
         const pointerSize = 20;
@@ -116,7 +148,7 @@ function WheelSketch(p) {
         p.triangle(
             0, -RADIUS - 5,
             -pointerSize / 2, -RADIUS + pointerSize - 5,
-            +pointerSize / 2, -RADIUS + pointerSize - 5
+            pointerSize / 2, -RADIUS + pointerSize - 5
         );
         p.pop();
     }
@@ -127,12 +159,9 @@ function WheelSketch(p) {
             return;
         }
 
-
         segments = [];
         let totalWeight = 0;
-        _items.forEach(it => {
-            totalWeight += it.weight || 1;
-        });
+        _items.forEach(it => totalWeight += it.weight || 1);
 
         let currentAngle = 0;
         _items.forEach(it => {
@@ -163,11 +192,10 @@ function WheelSketch(p) {
 
         startRotation = rotationAngle;
         animStartTime = performance.now();
-
-        animDuration = 8000 + (Math.random() * 4000 - 2000);
+        animDuration = SPIN_DURATION;
         isSpinning = true;
 
-        const totalWeight = segments.reduce((s, seg) => s + seg.weight, 0);
+        const totalWeight = segments.reduce((sum, seg) => sum + seg.weight, 0);
         const rnd = Math.random() * totalWeight;
 
         let cum = 0;
@@ -180,14 +208,13 @@ function WheelSketch(p) {
             }
         }
 
-        const midAngle = (chosenSeg.startAngle + chosenSeg.endAngle) / 2;
-        const normalizedMid = (midAngle % 360 + 360) % 360;
-        const needed = (360 - (normalizedMid - 90)) % 360;
+        const segmentSize = chosenSeg.endAngle - chosenSeg.startAngle;
+        const targetAngleWithinSegment = chosenSeg.startAngle + Math.random() * segmentSize;
+        const normalizedTarget = (targetAngleWithinSegment % 360 + 360) % 360;
+        const needed = (360 - (normalizedTarget - 90)) % 360;
 
-        const baseSpins = 20;
-        const spinFactor = 0.8 + Math.random() * 0.4;
-        const fullSpins = Math.floor(baseSpins * spinFactor);
-
+        const fullSpins = Math.floor(BASE_SPINS * SPIN_VARIATION);
+        targetRotation = fullSpins * 360 + needed;
         targetRotation = fullSpins * 360 + needed;
         lastSelected = chosenSeg.title;
     }
