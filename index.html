@@ -37,12 +37,39 @@
                 <button class="wheel-btn" data-wheel="default">Колесо балдежа</button>
                 <button class="wheel-btn" data-wheel="shame">Колесо говна</button>
                 <button class="wheel-btn" data-wheel="super_shame">Колесо супер говна</button>
+                <button class="wheel-btn" data-wheel="custom">Свое колесо</button>
             </div>
             <div class="last-selected">
                 <span id="last-selected-text"></span>
-                <img id="copy-last-selected" src="resources/wheel/page_white_paste_table.png"
+                <img id="copy-last-selected"
+                     src="resources/wheel/page_white_paste_table.png"
                      title="Скопировать последний выпавший пункт"/>
             </div>
+        </div>
+    </div>
+</div>
+
+<div id="wheel-modal-overlay">
+    <div id="wheel-modal">
+        <h2>Создать своё колесо</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Вес</th>
+            </tr>
+            </thead>
+            <tbody id="wheel-modal-body">
+            <tr>
+                <td><input name="item-title" placeholder="Название" type="text"></td>
+                <td><input min="1" name="item-weight" type="number" value="1"></td>
+            </tr>
+            </tbody>
+        </table>
+        <span class="add-row-btn">+ Добавить элемент</span>
+        <div class="actions">
+            <button id="wheel-modal-cancel">Отмена</button>
+            <button id="wheel-modal-apply">Применить</button>
         </div>
     </div>
 </div>
