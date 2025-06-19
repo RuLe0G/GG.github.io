@@ -34,11 +34,28 @@ class App {
     initTabs() {
         document.querySelectorAll('.tab-button').forEach(tabButton =>
             tabButton.addEventListener('click', async () => {
-                await this.switchTab(tabButton.dataset.tab);
+                const tabId = tabButton.dataset.tab;
+
+                // Если нажата кнопка для tab0 (Крутилка)
+                if (tabId === 'tab0') {
+                    const confirmed = window.confirm('Раздел "Крутилка" находится в разработке. Продолжить?');
+                    if (!confirmed) {
+                        // Если отказались — переключаемся обратно на tab1
+                        await this.switchTab('tab1');
+                        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                        document.querySelector('[data-tab="tab1"]').classList.add('active');
+                        document.getElementById('tab1').classList.add('active');
+                        return;
+                    }
+                }
+
+                // Обычное переключение
+                await this.switchTab(tabId);
                 document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
                 tabButton.classList.add('active');
-                document.getElementById(tabButton.dataset.tab).classList.add('active');
+                document.getElementById(tabId).classList.add('active');
             }));
     }
 

@@ -138,7 +138,7 @@ class Tab4 {
             const gameCard = document.createElement('div');
             gameCard.className = 'game-card';
             gameCard.style.backgroundImage = `url(${game.imageLink})`;
-            gameCard.dataset.gameId = game.gameName; // используем имя игры в качестве id
+            gameCard.dataset.gameId = game.gameName;
             const gameTitle = document.createElement('p');
             gameTitle.textContent = game.gameName;
             gameCard.appendChild(gameTitle);
