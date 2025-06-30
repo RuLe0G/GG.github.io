@@ -105,7 +105,7 @@
 .achievement-card img {
     width: 60%;
     height: 60%;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 4px;
 }
 
