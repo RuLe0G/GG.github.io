@@ -19,14 +19,6 @@ class Api {
             throw error;
         }
     }
-    static clear() {
-        try {
-            Cache.clearAll();
-        } catch (error) {
-            console.error('clear all error:', error);
-            throw error;
-        }
-    }
 }
 
 export default Api;
