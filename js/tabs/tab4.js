@@ -35,9 +35,9 @@ class Tab4 {
 
         const ratingSlider = document.createElement('input');
         ratingSlider.type = 'range';
-        ratingSlider.min = '0';
+        ratingSlider.min = '-1';
         ratingSlider.max = '10';
-        ratingSlider.value = '0';
+        ratingSlider.value = '-1';
         ratingSlider.className = 'rating-slider';
 
         const sliderLabel = document.createElement('span');
@@ -45,13 +45,17 @@ class Tab4 {
         sliderLabel.className = 'slider-label';
 
         ratingSlider.addEventListener('input', () => {
-            const value = ratingSlider.value;
-            sliderLabel.textContent = value === '0' ? 'Не использовать' : `${value}/10`;
-            this.filterGames(data.Library, searchInput.value.toLowerCase(), parseInt(value));
+            const value = parseInt(ratingSlider.value, 10);
+            if (value === -1) {
+                sliderLabel.textContent = 'Не использовать';
+            } else {
+                sliderLabel.textContent = `${value}/10`;
+            }
+            this.filterGames(data.Library, searchInput.value.toLowerCase(), value);
         });
 
         searchInput.addEventListener('input', () =>
-            this.filterGames(data.Library, searchInput.value.toLowerCase(), parseInt(ratingSlider.value))
+            this.filterGames(data.Library, searchInput.value.toLowerCase(), parseInt(ratingSlider.value, 10))
         );
 
         ratingSliderContainer.appendChild(ratingSlider);
@@ -96,11 +100,11 @@ class Tab4 {
         resetButton.className = 'reset-button';
         resetButton.addEventListener('click', () => {
             searchInput.value = '';
-            ratingSlider.value = '0';
+            ratingSlider.value = '-1';
             sliderLabel.textContent = 'Не использовать';
             this.clearActiveTags(authorsContainer);
             this.clearActiveTags(eventsContainer);
-            this.filterGames(data.Library, '', 0);
+            this.filterGames(data.Library, '', -1);
         });
         searchBar.appendChild(resetButton);
 
@@ -195,11 +199,16 @@ class Tab4 {
     filterGames(games, query, rating, author = null, event = null) {
         const filteredGames = games.filter(game => {
             const matchesQuery = game.gameName.toLowerCase().startsWith(query);
-            const matchesRating = rating === 0 || game.reviews.some(review => review.reviewerScore === rating);
+            const matchesRating = rating === -1
+                ? true
+                : game.reviews.some(review => review.reviewerScore === rating);
+
             const matchesAuthor = !author || game.reviews.some(review => review.reviewerName === author);
             const matchesEvent = !event || game.event.includes(event);
+
             return matchesQuery && matchesRating && matchesAuthor && matchesEvent;
         });
+
         const gamesGrid = document.querySelector('.games-grid');
         const sidebar = document.querySelector('.sidebar');
         this.updateGamesGrid(filteredGames, gamesGrid, sidebar);

@@ -1,7 +1,103 @@
 ﻿{
   "events": [
     {
-      "eventName": "Рулетыч «Игорный клуб 2023» (29.06 - 07.08)",
+      "eventName": "Рулетыч «Возрожденный клуб 2025» (1.06 - 01.09)",
+      "prize": "Что-то там про пиво",
+      "players": [
+        {
+          "name": "Илья «Предатель» Сидорин",
+          "gamesCount": 6,
+          "score": 1182,
+          "place": 4,
+          "achievements": 8,
+          "dropped": 1,
+          "bonuses": 5,
+          "link": "https://docs.google.com/spreadsheets/d/1EszecwTco6xeL7b95rLdINwAvyVTrZ_OT05Cp2zKbBs/edit?gid=1956934203#gid=1956934203"
+        },
+        {
+          "name": "Илья «dailypool»",
+          "gamesCount": 5,
+          "score": 950,
+          "place": 5,
+          "achievements": 5,
+          "dropped": 1,
+          "bonuses": 2,
+          "link": "https://docs.google.com/spreadsheets/d/1EszecwTco6xeL7b95rLdINwAvyVTrZ_OT05Cp2zKbBs/edit?gid=124709290#gid=124709290"
+        },
+        {
+          "name": "Влад «Олег»",
+          "gamesCount": 21,
+          "score": 3917,
+          "place": 3,
+          "achievements": 12,
+          "dropped": 1,
+          "bonuses": 23,
+          "link": "https://docs.google.com/spreadsheets/d/1EszecwTco6xeL7b95rLdINwAvyVTrZ_OT05Cp2zKbBs/edit?gid=1409201726#gid=1409201726"
+        },
+        {
+          "name": "Матвей «Бля в мафию бы»",
+          "gamesCount": 1,
+          "score": 145,
+          "place": 9,
+          "achievements": 3,
+          "dropped": 0,
+          "bonuses": 1,
+          "link": "https://docs.google.com/spreadsheets/d/1EszecwTco6xeL7b95rLdINwAvyVTrZ_OT05Cp2zKbBs/edit?gid=1274198777#gid=1274198777"
+        },
+        {
+          "name": "Игорь «|/| r 0 |> b»",
+          "gamesCount": 20,
+          "score": 5821,
+          "place": 1,
+          "achievements": 12,
+          "dropped": 0,
+          "bonuses": 13,
+          "link": "https://docs.google.com/spreadsheets/d/1EszecwTco6xeL7b95rLdINwAvyVTrZ_OT05Cp2zKbBs/edit?gid=2021625052#gid=2021625052"
+        },
+        {
+          "name": "Гена «Hit0gami»",
+          "gamesCount": 2,
+          "score": 365,
+          "place": 7,
+          "achievements": 4,
+          "dropped": 0,
+          "bonuses": 2,
+          "link": "https://docs.google.com/spreadsheets/d/1EszecwTco6xeL7b95rLdINwAvyVTrZ_OT05Cp2zKbBs/edit?gid=809929753#gid=809929753"
+        },
+        {
+          "name": "Максим «Евпатий Калокрад»",
+          "gamesCount": 4,
+          "score": 545,
+          "place": 6,
+          "achievements": 6,
+          "dropped": 0,
+          "bonuses": 4,
+          "link": "https://docs.google.com/spreadsheets/d/1EszecwTco6xeL7b95rLdINwAvyVTrZ_OT05Cp2zKbBs/edit?gid=141784130#gid=141784130"
+        },
+        {
+          "name": "Ваня «Твое имя»",
+          "gamesCount": 23,
+          "score": 5427,
+          "place": 2,
+          "achievements": 14,
+          "dropped": 0,
+          "bonuses": 21,
+          "link": "https://docs.google.com/spreadsheets/d/1EszecwTco6xeL7b95rLdINwAvyVTrZ_OT05Cp2zKbBs/edit?gid=1936379139#gid=1936379139"
+        },
+        {
+          "name": "Никита «The Choorka»",
+          "gamesCount": 3,
+          "score": 261,
+          "place": 8,
+          "achievements": 4,
+          "dropped": 0,
+          "bonuses": 3,
+          "link": "https://docs.google.com/spreadsheets/d/1EszecwTco6xeL7b95rLdINwAvyVTrZ_OT05Cp2zKbBs/edit?gid=920733287#gid=920733287"
+        }
+      ]
+    },
+    {
+      "eventName": "Рулетыч «Игорный клуб 2023» (29.07 - 07.08)",
       "prize": "roflanebalo.png",
       "players": [
         {
@@ -9,6 +105,7 @@
           "gamesCount": 10,
           "score": 1089,
           "place": 4,
+          "achievements": "не изобрели",
           "dropped": 1,
           "bonuses": 5,
           "link": "https://docs.google.com/spreadsheets/d/121UkvOT_ts7P4QaJ1BVbnuFoHOnU2gKAstAiqnoF8Bg/edit?gid=1956934203#gid=1956934203"
@@ -18,6 +115,7 @@
           "gamesCount": 4,
           "score": 436,
           "place": 6,
+          "achievements": "не изобрели",
           "dropped": 1,
           "bonuses": 1,
           "link": "https://docs.google.com/spreadsheets/d/121UkvOT_ts7P4QaJ1BVbnuFoHOnU2gKAstAiqnoF8Bg/edit?gid=124709290#gid=124709290"
@@ -27,6 +125,7 @@
           "gamesCount": 11,
           "score": 1944,
           "place": 1,
+          "achievements": "не изобрели",
           "dropped": 0,
           "bonuses": 10,
           "link": "https://docs.google.com/spreadsheets/d/121UkvOT_ts7P4QaJ1BVbnuFoHOnU2gKAstAiqnoF8Bg/edit?gid=1409201726#gid=1409201726"
@@ -36,6 +135,7 @@
           "gamesCount": 2,
           "score": 251,
           "place": 8,
+          "achievements": "не изобрели",
           "dropped": 0,
           "bonuses": 1,
           "link": "https://docs.google.com/spreadsheets/d/121UkvOT_ts7P4QaJ1BVbnuFoHOnU2gKAstAiqnoF8Bg/edit?gid=1274198777#gid=1274198777"
@@ -45,6 +145,7 @@
           "gamesCount": 7,
           "score": 1724,
           "place": 3,
+          "achievements": "не изобрели",
           "dropped": 0,
           "bonuses": 4,
           "link": "https://docs.google.com/spreadsheets/d/121UkvOT_ts7P4QaJ1BVbnuFoHOnU2gKAstAiqnoF8Bg/edit?gid=2021625052#gid=2021625052"
@@ -54,6 +155,7 @@
           "gamesCount": 9,
           "score": 1872,
           "place": 2,
+          "achievements": "не изобрели",
           "dropped": 0,
           "bonuses": 10,
           "link": "https://docs.google.com/spreadsheets/d/121UkvOT_ts7P4QaJ1BVbnuFoHOnU2gKAstAiqnoF8Bg/edit?gid=780482093#gid=780482093"
@@ -63,6 +165,7 @@
           "gamesCount": 7,
           "score": 681,
           "place": 5,
+          "achievements": "не изобрели",
           "dropped": 0,
           "bonuses": 5,
           "link": "https://docs.google.com/spreadsheets/d/121UkvOT_ts7P4QaJ1BVbnuFoHOnU2gKAstAiqnoF8Bg/edit?gid=141784130#gid=141784130"
@@ -72,6 +175,7 @@
           "gamesCount": 3,
           "score": 372,
           "place": 7,
+          "achievements": "не изобрели",
           "dropped": 0,
           "bonuses": 0,
           "link": "https://docs.google.com/spreadsheets/d/121UkvOT_ts7P4QaJ1BVbnuFoHOnU2gKAstAiqnoF8Bg/edit?gid=1596412894#gid=1596412894"
@@ -81,6 +185,7 @@
           "gamesCount": 2,
           "score": 163,
           "place": 9,
+          "achievements": "не изобрели",
           "dropped": 0,
           "bonuses": 2,
           "link": "https://docs.google.com/spreadsheets/d/121UkvOT_ts7P4QaJ1BVbnuFoHOnU2gKAstAiqnoF8Bg/edit?gid=1936379139#gid=1936379139"
@@ -96,6 +201,7 @@
           "gamesCount": 16,
           "score": 2095,
           "place": 1,
+          "achievements": "не изобрели",
           "dropped": 0,
           "bonuses": 11,
           "link": "https://docs.google.com/spreadsheets/d/1vExZIkyfXItn7_jKzPueKZzbp8qpsG8nLl1M-KJmQ6I/edit?gid=0#gid=0"
@@ -105,6 +211,7 @@
           "gamesCount": 7,
           "score": 131,
           "place": 5,
+          "achievements": "не изобрели",
           "dropped": 2,
           "bonuses": 5,
           "link": "https://docs.google.com/spreadsheets/d/1vExZIkyfXItn7_jKzPueKZzbp8qpsG8nLl1M-KJmQ6I/edit?gid=1504930002#gid=1504930002"
@@ -114,6 +221,7 @@
           "gamesCount": 15,
           "score": 1869,
           "place": 2,
+          "achievements": "не изобрели",
           "dropped": 1,
           "bonuses": 15,
           "link": "https://docs.google.com/spreadsheets/d/1vExZIkyfXItn7_jKzPueKZzbp8qpsG8nLl1M-KJmQ6I/edit?gid=458920120#gid=458920120"
@@ -123,6 +231,7 @@
           "gamesCount": 0,
           "score": 0,
           "place": 6,
+          "achievements": "не изобрели",
           "dropped": 1,
           "bonuses": 1,
           "link": "https://docs.google.com/spreadsheets/d/1vExZIkyfXItn7_jKzPueKZzbp8qpsG8nLl1M-KJmQ6I/edit?gid=1155680044#gid=1155680044"
@@ -132,6 +241,7 @@
           "gamesCount": 16,
           "score": 1633,
           "place": 3,
+          "achievements": "не изобрели",
           "dropped": 2,
           "bonuses": 13,
           "link": "https://docs.google.com/spreadsheets/d/1vExZIkyfXItn7_jKzPueKZzbp8qpsG8nLl1M-KJmQ6I/edit?gid=623667025#gid=623667025"
@@ -141,6 +251,7 @@
           "gamesCount": 13,
           "score": 681,
           "place": 4,
+          "achievements": "не изобрели",
           "dropped": 3,
           "bonuses": 4,
           "link": "https://docs.google.com/spreadsheets/d/1vExZIkyfXItn7_jKzPueKZzbp8qpsG8nLl1M-KJmQ6I/edit?gid=153794314#gid=153794314"
