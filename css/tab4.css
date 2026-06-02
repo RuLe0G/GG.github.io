@@ -176,9 +176,10 @@
 
 .dark-theme .active-tag {
     background-color: var(--darkAccent);
-    border-color: var(--darkAccent);
-    color: var(--darkText);
-    box-shadow: 0 0 10px rgba(99, 32, 106, 0.7);
+    color: white;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(213, 114, 181, 0.5);
+    transform: scale(1.05);
 }
 
 .dark-theme .game-card p {
@@ -196,7 +197,6 @@
 }
 
 .dark-theme .author-tag {
-    background-color: var(--darkPrimary);
     border: 1px solid var(--darkAccent);
     color: var(--darkText);
 }
@@ -206,7 +206,6 @@
 }
 
 .dark-theme .event-tag {
-    background-color: var(--darkPrimary);
     border: 1px solid var(--darkAccent);
     color: var(--darkText);
 }

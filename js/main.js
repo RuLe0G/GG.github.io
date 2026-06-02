@@ -1,7 +1,7 @@
 ﻿import {Helpers} from './modules/helpers.js';
 
 const DISCORD_CONFIG = {
-    webhookUrl: 'https://discord.com/api/webhooks/...'
+    webhookUrl: 'https://discord.com/api/webhooks/1511304787575177286/aApn47jPWYwAi6BXeVtiaZXspTgUNEjqDSDog2atwhwXm9pJGgglYhKSxjIXIeP-9RGo'
 };
 
 class App {
