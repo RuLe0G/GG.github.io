@@ -43,7 +43,7 @@ class Tab2 {
             const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
             currentEventPanel.innerHTML = `
         <h2>Текущий Рулетыч</h2>
-        <h3>Рулетыча нет, но до моего Дня Рождения:</h3>
+        <h3>Рулетыч «Патриотический клуб 2026»</h3>
         <div id="timer">
           ${days} дней, ${hours} часов, ${minutes} минут, ${seconds} секунд
         </div>

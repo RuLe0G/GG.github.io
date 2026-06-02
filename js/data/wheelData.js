@@ -13,6 +13,8 @@ export default {
             {title: "+20% поинтов ", weight: 2},
             {title: "Безнаказанный дроп", weight: 2},
             {title: "+10 поинтов за каждое выполненное достижение", weight: 2},
+            {title: "потеря половины поинтов при дропе", weight: 4},
+            {title: "дроп без колеса говна", weight: 4}
         ]
     },
     shame: {
@@ -44,7 +46,8 @@ export default {
             {title: "5 каток в доту (66 поинтов)", weight: 1},
             {title: "Postal 3", weight: 1},
             {title: "Смута (124 поинта)", weight: 1},
-            {title: "Sniper Art of Victory", weight: 1},
+            {title: "Земский собор (124 поинта)", weight: 1},
+            {title: "Wanted: Dead ", weight: 1},
         ]
     }
 };

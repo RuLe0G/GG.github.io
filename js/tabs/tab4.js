@@ -122,6 +122,7 @@ class Tab4 {
         closeButton.addEventListener('click', () => {
             sidebar.classList.add('hidden');
             gamesGrid.classList.remove('collapsed');
+            this.toggleBottomButtons(true);
         });
         sidebar.appendChild(closeButton);
         container.appendChild(sidebar);
@@ -138,6 +139,7 @@ class Tab4 {
     updateGamesGrid(games, gamesGrid, sidebar) {
         gamesGrid.innerHTML = '';
         sidebar.classList.add('hidden');
+        this.toggleBottomButtons(true);
         games.forEach(game => {
             const gameCard = document.createElement('div');
             gameCard.className = 'game-card';
@@ -158,6 +160,7 @@ class Tab4 {
         closeButton.addEventListener('click', () => {
             sidebar.classList.add('hidden');
             gamesGrid.classList.remove('collapsed');
+            this.toggleBottomButtons(true);
         });
         sidebar.appendChild(closeButton);
 
@@ -194,6 +197,7 @@ class Tab4 {
         sidebar.appendChild(reviewsContainer);
         sidebar.classList.remove('hidden');
         gamesGrid.classList.add('collapsed');
+        this.toggleBottomButtons(false);
     }
 
     filterGames(games, query, rating, author = null, event = null) {
@@ -246,10 +250,21 @@ class Tab4 {
         container.querySelectorAll('.active-tag').forEach(tag => tag.classList.remove('active-tag'));
     }
 
+    toggleBottomButtons(show) {
+        const feedbackBtn = document.getElementById('feedback-open-btn');
+        const donateBtn = document.getElementById('donate-btn');
+
+        const displayStyle = show ? 'inline-flex' : 'none'; // 'inline-flex' сохранит выравнивание доната
+
+        if (feedbackBtn) feedbackBtn.style.display = show ? 'block' : 'none';
+        if (donateBtn) donateBtn.style.display = displayStyle;
+    }
+
     activate() {
     }
 
     deactivate() {
+        this.toggleBottomButtons(true);
     }
 }
 

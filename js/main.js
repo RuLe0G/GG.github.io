@@ -1,7 +1,13 @@
 ﻿import {Helpers} from './modules/helpers.js';
+import { Cache } from './modules/cache.js';
 
 const DISCORD_CONFIG = {
     webhookUrl: 'https://discord.com/api/webhooks/1511304787575177286/aApn47jPWYwAi6BXeVtiaZXspTgUNEjqDSDog2atwhwXm9pJGgglYhKSxjIXIeP-9RGo'
+};
+
+window.clearCache = () => {
+    Cache.clearAll();
+    window.location.reload();
 };
 
 class App {
@@ -21,22 +27,23 @@ class App {
         const setTheme = theme => {
             if (theme === 'dark') {
                 document.body.classList.add('dark-theme');
-                themeToggle.textContent = 'Светлая тема';
+                if (themeToggle) themeToggle.textContent = 'Светлая тема';
             } else {
                 document.body.classList.remove('dark-theme');
-                themeToggle.textContent = 'Темная тема';
+                if (themeToggle) themeToggle.textContent = 'Темная тема';
             }
             localStorage.setItem('theme', theme);
         };
 
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme);
-        });
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const isDark = document.body.classList.contains('dark-theme');
+                const newTheme = isDark ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+        }
 
-        const savedTheme = localStorage.getItem('theme');
-        setTheme(savedTheme || 'light');
+        setTheme('dark');
     }
 
     initTabs() {

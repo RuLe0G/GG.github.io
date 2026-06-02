@@ -24,4 +24,12 @@ export class Cache {
             console.error(`Ошибка при очистке кэша для ${key}:`, error);
         }
     }
+    static clearAll() {
+        try {
+            localStorage.clear();
+            console.log('[Cache] Пользовательский кэш успешно очищен!');
+        } catch (error) {
+            console.error('Ошибка при полной очистке кэша:', error);
+        }
+    }
 }
