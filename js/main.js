@@ -161,12 +161,11 @@ class App {
             const captionText = `📥 **Новый фидбек**\n\n📌 **Вкладка:** ${tabName}\n📝 **Сообщение:** ${text}`;
 
             try {
-                const response = await fetch(DISCORD_CONFIG.webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
+                const formData = new FormData();
+
+                formData.append(
+                    'payload_json',
+                    JSON.stringify({
                         embeds: [{
                             title: 'Новый фидбек',
                             description: text,
@@ -175,11 +174,26 @@ class App {
                                     name: 'Вкладка',
                                     value: tabName
                                 }
-                            ],
-                            timestamp: new Date().toISOString()
+                            ]
                         }]
                     })
-                });
+                );
+
+                if (this.attachedFeedbackFile) {
+                    formData.append(
+                        'file',
+                        this.attachedFeedbackFile,
+                        this.attachedFeedbackFile.name
+                    );
+                }
+
+                const response = await fetch(
+                    DISCORD_CONFIG.webhookUrl,
+                    {
+                        method: 'POST',
+                        body: formData
+                    }
+                );
 
                 if (!response.ok) {
                     throw new Error('Discord webhook error');
