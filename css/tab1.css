@@ -71,7 +71,6 @@
     outline: none;
 }
 
-/* */
 
 .search-container input, .calculator select {
     background-color: var(--darkPrimary);
@@ -89,9 +88,10 @@
     color: var(--darkText);
 }
 
-.dark-theme .info-block:hover {
-    background-color: var(--darkAccent);
-    color: var(--darkText);
+.info-block:hover {
+    background-color: var(--secondary);
+    color: var(--text);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .dark-theme .calculator input, .dark-theme .calculator select {

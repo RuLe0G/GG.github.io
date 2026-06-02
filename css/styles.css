@@ -1,101 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Roboto+Condensed:wght@400;700&display=swap');
+
 :root {
-    --bg: #f4f6fb;
-    --text: #03070b;
-    --primary: #467ac8;
-    --secondary: #d895df;
-    --accent: #d572b5;
-    /*dark */
-    --darkBg: #04060b;
-    --darkText: #f3f7fc;
-    --darkPrimary: #376bb9;
-    --darkSecondary: #8d2a6e;
-    --darkAccent: #63206a;
+    --bg: #0a0b0d;
+    --text: #f5f5f5;
+    --primary: #16191c;
+    --secondary: #22272c;
+    --accent: #39ff14;
+    --glowAccent: #176308;
+    --warning: #ffcc00;
+    --danger: #ff3333; 
+    --border-color: #4f5660;
+    --panel-bg: rgba(20, 22, 24, 0.85);
+
+    --darkBg: #0a0b0d;
+    --darkText: #f5f5f5;
+    --darkPrimary: #16191c;
+    --darkSecondary: #22272c;
+    --darkAccent: #39ff14;
+    --darkGlowAccent: #176308;
+    --ui-glow: rgba(57, 255, 20, 0.15);
 }
 
 body {
-    font-family: 'Roboto Condensed', sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
+    font-family: 'Roboto Condensed', 'Oswald', sans-serif;
+    background-color: var(--darkBg);
+    color: var(--darkText);
     margin: 0;
     padding: 0;
-    transition: background-color 0.3s, color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background-image: linear-gradient(rgba(18, 18, 18, 0.5) 50%, transparent 50%),
+    linear-gradient(90deg, rgba(32, 32, 32, 0.2) 50%, transparent 50%);
+    background-size: 100% 4px, 4px 100%;
 }
 
 .tabs {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin: 0;
+    padding: 15px;
+    background: #000;
+    border-bottom: 2px solid #1a1c1e;
+    gap: 2px;
 }
 
 .tab-button {
-    padding: 10px 20px;
-    margin: 0 5px;
-    background-color: var(--primary);
-    color: var(--bg);
-    border: none;
-    border-radius: 5px;
+    padding: 12px 25px;
+    margin: 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: var(--darkPrimary);
+    color: #7a828e;
+    border: 1px solid #1f2326;
+    border-radius: 0 !important; /* Строгие острые углы */
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    position: relative;
 }
 
 .tab-button:hover {
-    background-color: var(--secondary);
-    color: var(--text);
+    background-color: var(--darkSecondary);
+    color: #fff;
+    border-color: #3f464d;
 }
 
 .tab-button.active {
-    background-color: var(--accent);
-    color: var(--bg);
+    background-color: #1a1f24;
+    color: var(--darkAccent);
+    border: 1px solid var(--darkAccent);
+    box-shadow: inset 0 0 8px var(--ui-glow), 0 0 8px var(--ui-glow);
+}
+
+.tab-button.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--darkAccent);
 }
 
 .tab-content {
     display: none;
-    padding: 20px;
-    border: 1px solid var(--primary);
-    border-radius: 5px;
-    background-color: #ffffff;
-    transition: background-color 0.3s;
+    padding: 25px;
+    border: 1px solid #1a1c1e;
+    background-color: var(--panel-bg);
+    backdrop-filter: blur(4px);
+    margin: 20px;
 }
 
 .tab-content.active {
     display: block;
 }
 
-/* Темная тема */
-.dark-theme {
-    background-color: var(--darkBg);
-    color: var(--darkText);
+button, .wheel-btn, .reset-button, .author-tag, .event-tag {
+    font-family: 'Roboto Condensed', sans-serif;
+    border-radius: 0 !important;
+    text-transform: uppercase;
 }
 
-.dark-theme .tab-button {
-    background-color: var(--darkPrimary);
-    color: var(--darkText);
-}
-
-.dark-theme .tab-button:hover {
-    background-color: var(--darkAccent);
-    color: var(--darkText);
-}
-
-.dark-theme .tab-button.active {
-    background-color: var(--darkSecondary);
-    color: var(--darkText);
-}
-
-.dark-theme .tab-content {
-    background-color: var(--darkBg);
-    border-color: var(--darkPrimary);
-}
-
-/* media */
 @media (max-width: 768px) {
-    .info-blocks {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
+    .tabs {
+        flex-wrap: wrap;
     }
-
-    .info-block {
-        max-width: 90%;
+    .tab-content {
+        margin: 10px;
+        padding: 15px;
     }
 }

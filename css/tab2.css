@@ -108,7 +108,7 @@
 
 .dark-theme .player-card {
     border: 1px solid var(--darkAccent);
-    color: var(--darkBg);
+    color: var(--text);
     background-color: var(--darkPrimary);
 }
 

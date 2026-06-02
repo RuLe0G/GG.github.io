@@ -32,7 +32,7 @@
 
 .wheel-btn {
     background-color: var(--primary);
-    color: var(--bg);
+    color: var(--text);
     border: 1px solid var(--accent);
     border-radius: 4px;
     padding: 8px 12px;
@@ -94,7 +94,7 @@
     font-family: sans-serif;
     font-size: 14px;
     color: var(--text, #333);
-    background: var(--bg-secondary, #f9f9f9);
+    background: var(--bg, #f9f9f9);
     border: 1px solid var(--accent, #ccc);
     border-radius: 6px;
     padding: 12px;
@@ -114,13 +114,6 @@
     vertical-align: middle;
 }
 
-#wheel-table tr:nth-child(even) {
-    background: var(--wheel-table-row-even-bg, #f7f7f7);
-}
-
-#wheel-table tr:hover {
-    background: var(--wheel-table-hover-bg, #e0e0e0);
-}
 
 .color-dot {
     display: inline-block;
@@ -141,7 +134,7 @@
 
 .wheel-btn {
     background-color: var(--primary);
-    color: var(--bg);
+    color: var(--text);
     border: 1px solid var(--accent);
     border-radius: 4px;
     padding: 6px 12px;
@@ -200,11 +193,6 @@
     text-align: left;
     font-size: 0.9rem;
     border-bottom: 1px solid var(--accent, #ccc);
-}
-
-#wheel-modal th {
-    background: var(--wheel-table-header-bg, #e0e0e0);
-    color: var(--wheel-table-header-text, #111);
 }
 
 #wheel-modal input[type="text"],
