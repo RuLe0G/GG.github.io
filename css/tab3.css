@@ -88,6 +88,17 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.achievement-card.legacy {
+    opacity: 0.55;
+    filter: grayscale(60%);
+    border-style: dashed;
+}
+
+.achievement-card.legacy:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
 .achievement-card.monochrome {
     filter: grayscale(100%);
 }

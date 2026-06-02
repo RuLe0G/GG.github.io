@@ -1,22 +1,18 @@
 ﻿import {Helpers} from './modules/helpers.js';
 
-// Настройки Telegram. 
-// Замените на ваши реальные данные.
-const TG_CONFIG = {
-    // Чтобы боты-парсеры на GitHub не забанили токен сразу, можно разбить его на 2 части
-    token: "8896341956:AAGth" + "3xMONrizUeQW2X8FnunmHMZQNBZmEg",
-    chatId: "739048976"
+const DISCORD_CONFIG = {
+    webhookUrl: 'https://discord.com/api/webhooks/...'
 };
 
 class App {
     constructor() {
         this.tabs = {};
-        this.currentTabId = 'tab1'; // Храним текущую вкладку
-        this.attachedFeedbackFile = null; // Для хранения файла картинки
+        this.currentTabId = 'tab1';
+        this.attachedFeedbackFile = null; 
 
         this.initTheme();
         this.initTabs();
-        this.initFeedback(); // Инициализация фидбека
+        this.initFeedback();
     }
 
     initTheme() {
@@ -105,9 +101,7 @@ class App {
         const previewImg = document.getElementById('feedback-preview-img');
         const removeImgBtn = document.getElementById('feedback-remove-img');
 
-        // Открытие модалки
         openBtn.addEventListener('click', () => {
-            // Находим имя кнопки активной вкладки для красивого отображения
             const tabButton = document.querySelector(`.tab-button[data-tab="${this.currentTabId}"]`);
             const tabName = tabButton ? tabButton.textContent : this.currentTabId;
 
@@ -116,7 +110,6 @@ class App {
             textarea.focus();
         });
 
-        // Закрытие модалки
         const closeModal = () => {
             overlay.style.display = 'none';
             textarea.value = '';
@@ -125,7 +118,6 @@ class App {
 
         cancelBtn.addEventListener('click', closeModal);
 
-        // Очистка картинки
         this.clearFeedbackImage = () => {
             this.attachedFeedbackFile = null;
             previewImg.src = '';
@@ -134,7 +126,6 @@ class App {
 
         removeImgBtn.addEventListener('click', this.clearFeedbackImage);
 
-        // Перехват Ctrl+V (Вставка картинки из буфера)
         textarea.addEventListener('paste', (event) => {
             const items = (event.clipboardData || event.originalEvent.clipboardData).items;
             for (const item of items) {
@@ -142,12 +133,10 @@ class App {
                     const file = item.getAsFile();
                     this.attachedFeedbackFile = file;
 
-                    // Создаем локальную ссылку для отображения превью
                     const blobUrl = URL.createObjectURL(file);
                     previewImg.src = blobUrl;
                     previewContainer.style.display = 'block';
 
-                    // Предотвращаем вставку текста, если это была чисто картинка
                     event.preventDefault();
                     break;
                 }
@@ -172,34 +161,36 @@ class App {
             const captionText = `📥 **Новый фидбек**\n\n📌 **Вкладка:** ${tabName}\n📝 **Сообщение:** ${text}`;
 
             try {
-                let url = `https://api.telegram.org/bot${TG_CONFIG.token}/sendMessage`;
-                let formData = new FormData();
-                formData.append('chat_id', TG_CONFIG.chatId);
-                formData.append('parse_mode', 'Markdown');
-
-                // Если прикреплена картинка, используем метод sendPhoto
-                if (this.attachedFeedbackFile) {
-                    url = `https://api.telegram.org/bot${TG_CONFIG.token}/sendPhoto`;
-                    formData.append('photo', this.attachedFeedbackFile);
-                    formData.append('caption', captionText);
-                } else {
-                    formData.append('text', captionText);
-                }
-
-                const response = await fetch(url, {
+                const response = await fetch(DISCORD_CONFIG.webhookUrl, {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        embeds: [{
+                            title: 'Новый фидбек',
+                            description: text,
+                            fields: [
+                                {
+                                    name: 'Вкладка',
+                                    value: tabName
+                                }
+                            ],
+                            timestamp: new Date().toISOString()
+                        }]
+                    })
                 });
 
-                if (response.ok) {
-                    alert('Спасибо за отзыв! Сообщение успешно доставлено.');
-                    closeModal();
-                } else {
-                    throw new Error('Ошибка сервера Telegram');
+                if (!response.ok) {
+                    throw new Error('Discord webhook error');
                 }
-            } catch (error) {
+
+                alert('Спасибо за отзыв!');
+                closeModal();
+            }
+            catch(error) {
                 console.error(error);
-                alert('Не удалось отправить сообщение. Попробуйте позже.');
+                alert('Не удалось отправить сообщение.');
             } finally {
                 sendBtn.disabled = false;
                 sendBtn.textContent = 'Отправить';

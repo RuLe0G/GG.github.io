@@ -25,7 +25,7 @@ class Tab2 {
 
     renderCurrentEvent() {
         const currentEventPanel = this.elements.currentEvent;
-        const eventDate = new Date('2026-06-04T00:00:00');
+        const eventDate = new Date('2026-07-01T00:00:00');
         const updateTimer = () => {
             const now = new Date();
             const timeDiff = eventDate - now;
