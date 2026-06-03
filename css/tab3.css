@@ -122,7 +122,7 @@
 
 .achievement-card p {
     font-size: 12px;
-    color: var(--bg);
+    color: var(--text);
     margin: 0;
     padding: 0 5px;
 }
@@ -159,7 +159,7 @@
 }
 
 .dark-theme .achievement-card p {
-    color: var(--darkBg);
+    color: var(--text);
 }
 
 .dark-theme .toggle-achievements-button {

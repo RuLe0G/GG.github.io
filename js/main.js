@@ -4,6 +4,14 @@ import { Cache } from './modules/cache.js';
 const DISCORD_CONFIG = {
     webhookUrl: 'https://discord.com/api/webhooks/1511304787575177286/aApn47jPWYwAi6BXeVtiaZXspTgUNEjqDSDog2atwhwXm9pJGgglYhKSxjIXIeP-9RGo'
 };
+const TG_CONFIG = {
+    token: "8896341956:AAGth" + "3xMONrizUeQW2X8FnunmHMZQNBZmEg",
+    chatId: "739048976"
+};
+const GITHUB_CONFIG = {
+    username: "RuLe0G", 
+    repository: "GG.github.io"
+};
 
 window.clearCache = () => {
     Cache.clearAll();
@@ -84,7 +92,7 @@ class App {
     }
 
     async switchTab(tabId) {
-        this.currentTabId = tabId; // Запоминаем текущую вкладку при переключении
+        this.currentTabId = tabId;
         await this.loadTab(tabId);
         if (this.tabs[tabId] && typeof this.tabs[tabId].activate === 'function') {
             this.tabs[tabId].activate();
@@ -150,7 +158,6 @@ class App {
             }
         });
 
-        // Отправка данных
         sendBtn.addEventListener('click', async () => {
             const text = textarea.value.trim();
             if (!text && !this.attachedFeedbackFile) {
@@ -163,59 +170,88 @@ class App {
 
             const tabButton = document.querySelector(`.tab-button[data-tab="${this.currentTabId}"]`);
             const tabName = tabButton ? tabButton.textContent : this.currentTabId;
-
-            // Формируем текст сообщения
-            const captionText = `📥 **Новый фидбек**\n\n📌 **Вкладка:** ${tabName}\n📝 **Сообщение:** ${text}`;
-
             try {
                 const formData = new FormData();
-
                 formData.append(
                     'payload_json',
                     JSON.stringify({
                         embeds: [{
-                            title: 'Новый фидбек',
+                            title: ' Новый фидбек',
                             description: text,
-                            fields: [
-                                {
-                                    name: 'Вкладка',
-                                    value: tabName
-                                }
-                            ]
+                            fields: [{ name: ' Вкладка', value: tabName }]
                         }]
                     })
                 );
 
                 if (this.attachedFeedbackFile) {
-                    formData.append(
-                        'file',
-                        this.attachedFeedbackFile,
-                        this.attachedFeedbackFile.name
-                    );
+                    formData.append('file', this.attachedFeedbackFile, this.attachedFeedbackFile.name);
                 }
 
-                const response = await fetch(
-                    DISCORD_CONFIG.webhookUrl,
-                    {
-                        method: 'POST',
-                        body: formData
-                    }
-                );
+                const response = await fetch(DISCORD_CONFIG.webhookUrl, {
+                    method: 'POST',
+                    body: formData
+                });
 
-                if (!response.ok) {
-                    throw new Error('Discord webhook error');
-                }
+                if (!response.ok) throw new Error('Discord API Error');
 
-                alert('Спасибо за отзыв!');
+                alert('Done');
                 closeModal();
+                return; 
+
+            } catch (discordError) {
+                console.warn('Сбой отправки в Discord, переключаемся на Telegram...', discordError);
             }
-            catch(error) {
-                console.error(error);
-                alert('Не удалось отправить сообщение.');
-            } finally {
-                sendBtn.disabled = false;
-                sendBtn.textContent = 'Отправить';
+
+            try {
+                let url = `https://api.telegram.org/bot${TG_CONFIG.token}/sendMessage`;
+                let tgFormData = new FormData();
+                tgFormData.append('chat_id', TG_CONFIG.chatId);
+                tgFormData.append('parse_mode', 'Markdown');
+
+                const captionText = ` **Новый фидбек**\n\n **Вкладка:** ${tabName}\n **Сообщение:** ${text}`;
+
+                if (this.attachedFeedbackFile) {
+                    url = `https://api.telegram.org/bot${TG_CONFIG.token}/sendPhoto`;
+                    tgFormData.append('photo', this.attachedFeedbackFile);
+                    tgFormData.append('caption', captionText);
+                } else {
+                    tgFormData.append('text', captionText);
+                }
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: tgFormData
+                });
+
+                if (!response.ok) throw new Error('Telegram API Error');
+
+                alert('Done');
+                closeModal();
+                return;
+
+            } catch (tgError) {
+                console.warn('Сбой отправки. Перенаправление на GitHub Issues...', tgError);
             }
+
+            const issueTitle = encodeURIComponent(`Фидбек из раздела: ${tabName}`);
+            const issueBody = encodeURIComponent(
+                `### Описание проблемы / Отзыв\n${text}\n\n` +
+                `*Отправлено автоматически через форму фидбека.*`
+            );
+
+            const githubIssueUrl = `https://github.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repository}/issues/new?title=${issueTitle}&body=${issueBody}`;
+
+            alert('Сбой отправки. Перенаправление на GitHub Issues...');
+
+            window.open(githubIssueUrl, '_blank', 'noopener,noreferrer');
+
+            if (this.attachedFeedbackFile) {
+                alert('Отправка идет через GitHub, потребуется заново вставить изображение прямо в поле описания тикета на открывшейся странице.');
+            }
+
+            closeModal();
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'Отправить';
         });
     }
 }
