@@ -111,3 +111,57 @@ button, .wheel-btn, .reset-button, .author-tag, .event-tag {
         padding: 15px;
     }
 }
+.season-banner {
+    width: 100%;
+    height: 36px;
+
+    overflow: hidden;
+
+    background: #050505;
+    border-bottom: 1px solid var(--darkAccent);
+    border-top: 1px solid #222;
+
+    display: flex;
+    align-items: center;
+
+    box-shadow:
+            inset 0 0 10px rgba(57,255,20,0.08),
+            0 0 10px rgba(57,255,20,0.05);
+}
+
+.season-banner-track {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+
+    min-width: max-content;
+
+    color: var(--darkAccent);
+
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    letter-spacing: 2px;
+
+    animation: season-scroll 25s linear infinite;
+}
+
+.season-banner-text {
+    padding-right: 40px;
+}
+
+.season-separator {
+    padding-right: 40px;
+    color: var(--warning);
+}
+
+@keyframes season-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-33.333%);
+    }
+}

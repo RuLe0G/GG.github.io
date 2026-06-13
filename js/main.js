@@ -1,5 +1,6 @@
 ﻿import {Helpers} from './modules/helpers.js';
 import { Cache } from './modules/cache.js';
+import { SEASONS } from './modules/seasons.js';
 
 const DISCORD_CONFIG = {
     webhookUrl: 'https://discord.com/api/webhooks/1511304787575177286/aApn47jPWYwAi6BXeVtiaZXspTgUNEjqDSDog2atwhwXm9pJGgglYhKSxjIXIeP-9RGo'
@@ -25,8 +26,40 @@ class App {
         this.attachedFeedbackFile = null; 
 
         this.initTheme();
+        this.initSeasonBanner();
         this.initTabs();
         this.initFeedback();
+    }
+
+    initSeasonBanner() {
+        const banner = document.getElementById('season-banner');
+
+        if (!banner) return;
+
+        const now = new Date();
+
+        const activeSeason = SEASONS.find(season => {
+            const start = new Date(season.start);
+            const end = new Date(season.end);
+
+            return now >= start && now < end;
+        });
+
+        if (!activeSeason) {
+            banner.remove();
+            return;
+        }
+
+        const text =
+            `${activeSeason.name}`;
+
+        banner.querySelector('.season-banner-track').innerHTML = `
+    <span class="season-banner-text">${text}</span>
+    <span class="season-separator">|||</span>
+    <span class="season-banner-text">${text}</span>
+    <span class="season-separator">|||</span>
+    <span class="season-banner-text">${text}</span>
+`;
     }
 
     initTheme() {
@@ -58,7 +91,7 @@ class App {
         document.querySelectorAll('.tab-button').forEach(tabButton =>
             tabButton.addEventListener('click', async () => {
                 const tabId = tabButton.dataset.tab;
-
+/*
                 if (tabId === 'tab0') {
                     const confirmed = window.confirm('Раздел "Крутилка" находится в разработке. Продолжить?');
                     if (!confirmed) {
@@ -70,7 +103,7 @@ class App {
                         return;
                     }
                 }
-
+*/
                 await this.switchTab(tabId);
                 document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
