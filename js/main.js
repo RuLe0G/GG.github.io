@@ -1,6 +1,6 @@
 ﻿import {Helpers} from './modules/helpers.js';
 import { Cache } from './modules/cache.js';
-import { SEASONS } from './modules/seasons.js';
+import { SEASONS } from './data/seasons.js';
 
 const DISCORD_CONFIG = {
     webhookUrl: 'https://discord.com/api/webhooks/1511304787575177286/aApn47jPWYwAi6BXeVtiaZXspTgUNEjqDSDog2atwhwXm9pJGgglYhKSxjIXIeP-9RGo'
@@ -162,6 +162,8 @@ class App {
             overlay.style.display = 'none';
             textarea.value = '';
             this.clearFeedbackImage();
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'Отправить';
         };
 
         cancelBtn.addEventListener('click', closeModal);
@@ -283,8 +285,6 @@ class App {
             }
 
             closeModal();
-            sendBtn.disabled = false;
-            sendBtn.textContent = 'Отправить';
         });
     }
 }
