@@ -198,6 +198,11 @@ class Tab4 {
         sidebar.classList.remove('hidden');
         gamesGrid.classList.add('collapsed');
         this.toggleBottomButtons(false);
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     filterGames(games, query, rating, author = null, event = null) {
