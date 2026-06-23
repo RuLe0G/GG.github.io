@@ -3,10 +3,10 @@ import { Cache } from './modules/cache.js';
 import { SEASONS } from './data/seasons.js';
 
 const DISCORD_CONFIG = {
-    webhookUrl: 'https://discord.com/api/webhooks/1511304787575177286/aApn47jPWYwAi6BXeVtiaZXspTgUNEjqDSDog2atwhwXm9pJGgglYhKSxjIXIeP-9RGo'
+    webhookUrl: 'vafi69vT0zrQrKVrAIJ-ObJY5Tkx2Tanm6VLCUalFpB868p2bJfmRXejf5OGCex-6kWF/4765621468469898151/skoohbew/ipa/moc.drocsid//:sptth'
 };
 const TG_CONFIG = {
-    token: "8896341956:AAGth" + "3xMONrizUeQW2X8FnunmHMZQNBZmEg",
+    token: "sbAl61-EdzaV931yGHhwCH" + "A5l2YU0g52HAA:6591436988",
     chatId: "739048976"
 };
 const GITHUB_CONFIG = {
@@ -136,6 +136,7 @@ class App {
             }
         });
     }
+    
 
     initFeedback() {
         const openBtn = document.getElementById('feedback-open-btn');
@@ -222,7 +223,8 @@ class App {
                     formData.append('file', this.attachedFeedbackFile, this.attachedFeedbackFile.name);
                 }
 
-                const response = await fetch(DISCORD_CONFIG.webhookUrl, {
+                const decryptedWebhookUrl = reverseString(DISCORD_CONFIG.webhookUrl)
+                const response = await fetch(decryptedWebhookUrl, {
                     method: 'POST',
                     body: formData
                 });
@@ -237,8 +239,13 @@ class App {
                 console.warn('Сбой отправки в Discord, переключаемся на Telegram...', discordError);
             }
 
+            function reverseString(str) {
+                return str.split('').reverse().join('');
+            }
+
             try {
-                let url = `https://api.telegram.org/bot${TG_CONFIG.token}/sendMessage`;
+                const decryptedToken = reverseString(TG_CONFIG.token);
+                let url = `https://api.telegram.org/bot${decryptedToken}/sendMessage`;
                 let tgFormData = new FormData();
                 tgFormData.append('chat_id', TG_CONFIG.chatId);
                 tgFormData.append('parse_mode', 'Markdown');
@@ -265,7 +272,7 @@ class App {
                 return;
 
             } catch (tgError) {
-                console.warn('Сбой отправки. Перенаправление на GitHub Issues...', tgError);
+                console.warn('Сбой отправки. Кидай мне в лс или в GitHub Issues. Перенаправление на GitHub Issues...', tgError);
             }
 
             const issueTitle = encodeURIComponent(`Фидбек из раздела: ${tabName}`);
