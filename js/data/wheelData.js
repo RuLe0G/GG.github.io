@@ -3,6 +3,7 @@ export default {
         title: "Колесо балдежа",
         items: [
             {title: "1 из 2 игр на выбор", weight: 10},
+            {title: "TESTTESTTESTTESTTEST", weight: 10},
             {title: "Реролл", weight: 10},
             {title: "+25 поинтов", weight: 10},
             {title: "Повысить шанс выпадения игры в чужом колесе", weight: 10},
