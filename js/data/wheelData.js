@@ -3,6 +3,7 @@ export default {
         title: "Колесо балдежа",
         items: [
             {title: "1 из 2 игр на выбор", weight: 10},
+            {title: "TESTTESTTESTTESTTEST", weight: 10},
             {title: "Реролл", weight: 10},
             {title: "+25 поинтов", weight: 10},
             {title: "Повысить шанс выпадения игры в чужом колесе", weight: 10},
@@ -14,7 +15,8 @@ export default {
             {title: "Безнаказанный дроп", weight: 2},
             {title: "+10 поинтов за каждое выполненное достижение", weight: 2},
             {title: "потеря половины поинтов при дропе", weight: 4},
-            {title: "дроп без колеса говна", weight: 4}
+            {title: "дроп без колеса говна", weight: 4},
+            {title: "ролл 2 игр для одноврменного прохождения", weight: 10},
         ]
     },
     shame: {
@@ -51,7 +53,7 @@ export default {
         ]
     },
     season3: {
-        title: "Колесо отборного говна",
+        title: "Колесо хаоса",
         items: [
             {title: "РЕРОЛЛ", weight: 10},
             {title: "1 из 2 игр на выбор", weight: 10},
