@@ -21,7 +21,6 @@ window.clearCache = () => {
 
 class App {
     constructor() {
-        Cache.clearAll()
         this.tabs = {};
         this.currentTabId = 'tab1';
         this.attachedFeedbackFile = null; 
