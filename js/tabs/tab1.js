@@ -102,17 +102,21 @@ class Tab1 {
         const hoursInput = document.getElementById('hours');
         const category1Select = document.getElementById('category1');
         const category2Select = document.getElementById('category2');
+        const category3Select = document.getElementById('category3');
+        const category4Select = document.getElementById('category4');
         const resultInput = document.getElementById('result');
 
         function calculateResult() {
             const hours = parseFloat(hoursInput.value) || 0;
             const cat1 = parseFloat(category1Select.value) || 1;
             const cat2 = parseFloat(category2Select.value) || 1;
-            const result = hours * 10 * cat1 * cat2;
-            resultInput.value = result.toFixed(2);
+            const cat3 = parseFloat(category3Select.value) || 1;
+            const cat4 = parseFloat(category4Select.value) || 1;
+            const result = hours * 10 * cat1 * cat2 * cat3 * cat4;
+            resultInput.value = Math.round(result);
         }
 
-        [hoursInput, category1Select, category2Select].forEach(input =>
+        [hoursInput, category1Select, category2Select, category3Select, category4Select].forEach(input =>
             input.addEventListener('input', calculateResult)
         );
     }
