@@ -120,7 +120,7 @@ class Tab1 {
             const cat2 = parseNumber(category2Select.value);
             const cat3 = parseNumber(category3Select.value);
             const cat4 = parseNumber(category4Select.value);
-            
+                        
             const result = hours * 10 * cat1 * cat2 * cat3 * cat4;
             resultInput.value = Math.round(result);
         }

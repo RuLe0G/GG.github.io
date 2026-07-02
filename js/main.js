@@ -297,6 +297,8 @@ class App {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    Cache.checkVersion();
+
     const app = new App();
     await app.switchTab('tab1');
 });
