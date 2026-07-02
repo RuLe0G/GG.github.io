@@ -106,12 +106,21 @@ class Tab1 {
         const category4Select = document.getElementById('category4');
         const resultInput = document.getElementById('result');
 
+        function parseNumber(value) {
+            if (typeof value !== 'string') return 0;
+            let cleanedValue = value.trim();
+            cleanedValue = cleanedValue.replace(',', '.');
+            const num = parseFloat(cleanedValue);
+            return isNaN(num) ? 0 : num;
+        }
+        
         function calculateResult() {
-            const hours = parseFloat(hoursInput.value) || 0;
-            const cat1 = parseFloat(category1Select.value) || 1;
-            const cat2 = parseFloat(category2Select.value) || 1;
-            const cat3 = parseFloat(category3Select.value) || 1;
-            const cat4 = parseFloat(category4Select.value) || 1;
+            const hours = parseNumber(hoursInput.value);
+            const cat1 = parseNumber(category1Select.value);
+            const cat2 = parseNumber(category2Select.value);
+            const cat3 = parseNumber(category3Select.value);
+            const cat4 = parseNumber(category4Select.value);
+            
             const result = hours * 10 * cat1 * cat2 * cat3 * cat4;
             resultInput.value = Math.round(result);
         }
