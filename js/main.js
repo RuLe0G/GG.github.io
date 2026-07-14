@@ -32,17 +32,23 @@ class App {
     }
 
     initSeasonBanner() {
+       
         const banner = document.getElementById('season-banner');
 
         if (!banner) return;
+        function parseDate(dateString) {
+            const [y, m, d] = dateString.split('-').map(Number);
+            return new Date(y, m - 1, d, 0, 0, 0, 0);
+        }
 
-        const now = new Date();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
         const activeSeason = SEASONS.find(season => {
-            const start = new Date(season.start);
-            const end = new Date(season.end);
+            const start = parseDate(season.start);
+            const end = parseDate(season.end);
 
-            return now >= start && now < end;
+            return today >= start && today < end;
         });
 
         if (!activeSeason) {
