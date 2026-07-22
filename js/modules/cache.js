@@ -1,4 +1,4 @@
-const CACHE_VERSION = "1.0.4";
+const CACHE_VERSION = "1.0.5";
 
 export class Cache {
     static checkVersion() {
