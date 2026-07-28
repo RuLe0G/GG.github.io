@@ -35,7 +35,7 @@ export default class Tab0 {
         }
 
         this.p5Wheel = new p5(WheelSketch);
-        this.setWheelData('default');
+        this.setWheelData('season3');
         this.wheelInitialized = true;
     }
 
