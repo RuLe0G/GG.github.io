@@ -1,4 +1,4 @@
-const CACHE_VERSION = "1.0.6";
+const CACHE_VERSION = "1.0.7";
 
 export class Cache {
     static checkVersion() {
@@ -40,6 +40,8 @@ export class Cache {
         try {
             localStorage.clear();
             console.log('[Cache] Пользовательский кэш успешно очищен!');
+            window.location.href = window.location.origin + window.location.pathname + '?timestamp=' + Date.now();
+            window.location.reload(true);
         } catch (error) {
             console.error('Ошибка при полной очистке кэша:', error);
         }
