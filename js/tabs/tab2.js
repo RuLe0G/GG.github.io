@@ -25,14 +25,13 @@ class Tab2 {
 
     renderCurrentEvent() {
         const currentEventPanel = this.elements.currentEvent;
-        const eventDate = new Date('2026-09-01T00:00:00');
+        const eventDate = new Date('2027-06-04T00:00:00');
         const updateTimer = () => {
             const now = new Date();
             const timeDiff = eventDate - now;
             if (timeDiff <= 0) {
                 currentEventPanel.innerHTML = `
-          <h1>Текущий Рулетыч</h1>
-          <h2>Рулетыча нет, но до моего Дня Рождения</h2>
+          <h2>Рулетыча нет</h2>
         `;
                 clearInterval(timerInterval);
                 return;
@@ -42,8 +41,8 @@ class Tab2 {
             const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
             currentEventPanel.innerHTML = `
-        <h2>Рулетыч «Патриотический клуб 2026»</h2>
-        <h3>Время до конца:</h3>
+        <h2>Текущий Рулетыч</h2>
+        <h3>Рулетыча нет, но до моего Дня Рождения:</h3>
         <div id="timer">
           ${days} дней, ${hours} часов, ${minutes} минут, ${seconds} секунд
         </div>

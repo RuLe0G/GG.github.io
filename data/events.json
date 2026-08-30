@@ -1,6 +1,72 @@
 ﻿{
   "events": [
     {
+      "eventName": "Рулетыч «Патриотический клуб 2026» (1.06 - 01.09)",
+      "prize": "Крутой кубок и Nintendo Switch 2",
+      "players": [
+        {
+          "name": "Илья «Sidsand» Сидорин",
+          "gamesCount": 4,
+          "score": 981,
+          "place": 6,
+          "achievements": 7,
+          "dropped": 0,
+          "bonuses": 5,
+          "link": "https://docs.google.com/spreadsheets/d/10ZT7Sm2Mv0ofigk8IMRABTBgV1QoHwpDzd2bZ3Yoj7o/edit?gid=1956934203#gid=1956934203"
+        },
+        {
+          "name": "Илья К. «dailypool»",
+          "gamesCount": 4,
+          "score": 1193,
+          "place": 5,
+          "achievements": 6,
+          "dropped": 1,
+          "bonuses": 2,
+          "link": "https://docs.google.com/spreadsheets/d/10ZT7Sm2Mv0ofigk8IMRABTBgV1QoHwpDzd2bZ3Yoj7o/edit?gid=124709290#gid=124709290"
+        },
+        {
+          "name": "Влад «Б. Дядя»",
+          "gamesCount": 25,
+          "score": 5645,
+          "place": 2,
+          "achievements": 18,
+          "dropped": 1,
+          "bonuses": 38,
+          "link": "https://docs.google.com/spreadsheets/d/10ZT7Sm2Mv0ofigk8IMRABTBgV1QoHwpDzd2bZ3Yoj7o/edit?gid=1409201726#gid=1409201726"
+        },
+        {
+          "name": "Егор",
+          "gamesCount": 15,
+          "score": 3671,
+          "place": 4,
+          "achievements": 18,
+          "dropped": 0,
+          "bonuses": 23,
+          "link": "https://docs.google.com/spreadsheets/d/10ZT7Sm2Mv0ofigk8IMRABTBgV1QoHwpDzd2bZ3Yoj7o/edit?gid=1274198777#gid=1274198777"
+        },
+        {
+          "name": "Матвей",
+          "gamesCount": 15,
+          "score": 4122,
+          "place": 3,
+          "achievements": 16,
+          "dropped": 0,
+          "bonuses": 25,
+          "link": "https://docs.google.com/spreadsheets/d/10ZT7Sm2Mv0ofigk8IMRABTBgV1QoHwpDzd2bZ3Yoj7o/edit?gid=920733287#gid=920733287"
+        },
+        {
+          "name": "Игорь «Фанат лисожены»",
+          "gamesCount": 22,
+          "score": 8549,
+          "place": 1,
+          "achievements": 19,
+          "dropped": 0,
+          "bonuses": 32,
+          "link": "https://docs.google.com/spreadsheets/d/10ZT7Sm2Mv0ofigk8IMRABTBgV1QoHwpDzd2bZ3Yoj7o/edit?gid=2021625052#gid=2021625052"
+        }
+      ]
+    },
+    {
       "eventName": "Рулетыч «Возрожденный клуб 2025» (1.06 - 01.09)",
       "prize": "Что-то там про пиво",
       "players": [
