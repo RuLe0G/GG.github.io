@@ -26,6 +26,9 @@ class Tab2 {
     renderCurrentEvent() {
         const currentEventPanel = this.elements.currentEvent;
         const eventDate = new Date('2027-06-04T00:00:00');
+
+        let timerInterval;
+
         const updateTimer = () => {
             const now = new Date();
             const timeDiff = eventDate - now;
@@ -49,8 +52,9 @@ class Tab2 {
         <p></p>
       `;
         };
-        updateTimer();
-        const timerInterval = setInterval(updateTimer, 1000);
+
+        updateTimer(); // Первый вызов
+        timerInterval = setInterval(updateTimer, 1000); // Теперь присваиваем
     }
 
     renderPastEvents(events) {
